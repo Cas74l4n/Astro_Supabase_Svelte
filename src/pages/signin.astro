@@ -12,18 +12,18 @@ if (accessToken && refreshToken) {
 ---
 
 <Layout title="Iniciar sesión">
-  <div class="container">
+  <div class="container m-auto">
     <div class="login-box">
-      <h1>Iniciar sesión</h1>
-      <p>¿Nuevo aquí? <a href="/register">Crea una cuenta</a></p>
+      <h1 class="text-gray-600">Iniciar sesión</h1>
+      <p class="text-gray-600">¿Nuevo aquí? <a href="/register">Crea una cuenta</a></p>
       <form action="/api/auth/signin" method="post">
         <div class="form-group">
-          <label for="email">Correo electrónico</label>
-          <input type="email" name="email" id="email" />
+          <label class="text-gray-600" for="email">Correo electrónico</label>
+          <input class="text-gray-600"type="email" name="email" id="email" />
         </div>
         <div class="form-group">
-          <label for="password">Contraseña</label>
-          <input type="password" name="password" id="password" />
+          <label class="text-gray-600" for="password">Contraseña</label>
+          <input class="text-gray-600" type="password" name="password" id="password" />
         </div>
         <button type="submit">Iniciar sesión</button>
       </form>
@@ -33,86 +33,85 @@ if (accessToken && refreshToken) {
 
 <style>
   .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 1rem;
-}
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 1rem;
+  }
 
-.login-box {
-  width: 100%;
-  max-width: 400px;
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
+  .login-box {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
 
-.login-box h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  font-weight: bold;
-}
+  .login-box h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
 
-.login-box p {
-  margin-bottom: 1.5rem;
-}
+  .login-box p {
+    margin-bottom: 1.5rem;
+  }
 
-.login-box a {
-  color: #3b82f6;
-  text-decoration: none;
-}
+  .login-box a {
+    color: #3b82f6;
+    text-decoration: none;
+  }
 
-.login-box a:hover {
-  text-decoration: underline;
-}
+  .login-box a:hover {
+    text-decoration: underline;
+  }
 
-.form-group {
-  margin-bottom: 1rem;
-  text-align: left;
-}
+  .form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-}
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
 
-.form-group input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-}
+  .form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
 
-.form-group input:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-}
+  .form-group input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
 
-button {
-  width: 100%;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #3b82f6;
-  color: white;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-}
+  button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #3b82f6;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
 
-button:hover {
-  background-color: #2563eb;
-}
+  button:hover {
+    background-color: #2563eb;
+  }
 
-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
-}
-
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+  }
 </style>

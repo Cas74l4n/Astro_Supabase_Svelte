@@ -1,74 +1,38 @@
 ---
-
-import CoHere from "../icons/CoHere.astro";
-
 import Base from "../layouts/Base.astro";
 
 export const prerender = true;
 const title = "Welcome to a Fix my english";
 ---
 
-<Base title="Welcome to Astro.">
-	<main>
-
-	</main>
+<Base title={title}>
+  <main class="flex-1 flex flex-col gap-4 items-center p-4 justify-center">
+    <h1 class="text-2xl sm:text-4xl font-bold text-center">{title}</h1>
+    <h1 class="text-2xl sm:text-4xl font-bold text-center">Power By</h1>
+    <ul class="flex gap-6 items-center font-bold text-2xl mt-6">
+      <li
+        class="dark:bg-zinc-800 bg-white border-t dark:border-zinc-700 h-20 w-20 border-transparent rounded-lg shadow dark:shadow-none flex items-center justify-center"
+      >
+        
+      </li>
+       &plus;
+      <li
+        class="dark:bg-zinc-800 bg-white border-t dark:border-zinc-700 h-20 w-20 border-transparent rounded-lg shadow dark:shadow-none flex items-center justify-center"
+      >
+        
+      </li>
+      &plus;
+      <li
+        class="dark:bg-zinc-800 bg-white border-t dark:border-zinc-700 h-20 w-20 border-transparent rounded-lg shadow dark:shadow-none flex items-center justify-center"
+      >
+        
+      </li>
+    </ul>
+    <p class="mt-6 max-w-prose">This page was pre-rendered at build time</p>
+    <a
+      href="https://github.com/kevinzunigacuellar/astro-supabase"
+      class="font-mono max-w-prose underline underline-offset-2 hover:text-blue-700 text-blue-600 dark:text-blue-500 dark:hover:text-blue-400"
+      >Source code on GitHub</a
+    >
+  </main>
 </Base>
-
-<style>
-	main {
-		margin: auto; 
-		padding: 1rem;
-		width: 800px;
-		max-width: calc(100% - 2rem);
-		color: white;
-		font-size: 20px;
-		line-height: 1.6;
-	}
-	.astro-a {
-		position: absolute;
-		top: -32px;
-		left: 50%;
-		transform: translatex(-50%);
-		width: 220px;
-		height: auto;
-		z-index: -1;
-	}
-	h1 {
-		font-size: 4rem;
-		font-weight: 700;
-		line-height: 1;
-		text-align: center;
-		margin-bottom: 1em;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		margin-bottom: 2rem;
-		border: 1px solid rgba(var(--accent-light), 25%);
-		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
-		padding: 1.5rem;
-		border-radius: 8px;
-	}
-	.instructions code {
-		font-size: 0.8em;
-		font-weight: bold;
-		background: rgba(var(--accent-light), 12%);
-		color: rgb(var(--accent-light));
-		border-radius: 4px;
-		padding: 0.3em 0.4em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent-light));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 2rem;
-		padding: 0;
-	}
-</style>

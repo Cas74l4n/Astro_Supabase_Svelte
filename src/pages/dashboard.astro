@@ -1,5 +1,7 @@
 ---
-import Layout from "../layouts/Base.astro";
+import React from "../components/React.svelte";
+import Dash from "../layouts/dashboard.astro";
+
 import { supabase } from "../lib/supabase";
 
 const { cookies, redirect } = Astro;
@@ -28,15 +30,18 @@ if (error) {
 }
 
 const email = data?.user?.email;
+
 ---
 
-<Layout title="panel de control">
+<Dash title="panel de control z-10">
     <h1>Bienvenido {email}</h1>
     <p>Estamos felices de verte aquí</p>
     <form action="/api/auth/signout">
         <button type="submit">Cerrar sesión</button>
     </form>
-</Layout>
+
+    <React/>
+</Dash>
 
 <style>
     p,
