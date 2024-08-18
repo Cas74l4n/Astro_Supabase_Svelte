@@ -1,12 +1,14 @@
 <script>
     import { onMount } from "svelte";
     import { fixMyEnglish } from "../service/AI.js";
+    import Loading from "../components/icons/Loading.svelte";
+    import Upload from "../components/icons/Updoad.svelte";
   
     let reviews = [];
+    let promise = null;
     let inputText = "";
     let correctedText = "";
     let isCorrect = null;
-    let loading = false;
   
     async function fetchReviews() {
       const res = await fetch("/api/StoreConversation");
@@ -19,23 +21,21 @@
       reviews = data;
     }
   
-    async function handleClick() {
-      const input = document.getElementById("result");
-      if (!input) return;
-  
-      inputText = input.value;
-      loading = true;
-  
-      const value = await fixMyEnglish(input.value);
-      correctedText = value;
-  
-      if (input.value.trim() === value.trim()) {
-        isCorrect = true;
-      } else {
-        isCorrect = false;
-      }
-      loading = false;
-    }
+    const handleClick = async () => {
+        inputText = document.getElementById("result").value;
+        promise = fixMyEnglish(inputText);
+        const value = await promise;
+
+        correctedText = value;
+
+        if (inputText.trim() === correctedText.trim()) {
+            isCorrect = true;
+        } else {
+            isCorrect = false;
+        }
+
+        promise = null;
+    };
   
     async function onSubmitHandler(e) {
       e.preventDefault();
@@ -59,7 +59,7 @@
     });
   </script>
   
-  <div class="max-w-3xl w-full">
+<!--   <div class="max-w-3xl w-full m-auto">
     <form
       on:submit={onSubmitHandler}
       class="block border bg-blue-100 border-blue-300 rounded-md p-6 dark:bg-blue-950 dark:border-blue-800"
@@ -81,6 +81,7 @@
             type="button"
             class="pointer-events-none py-2 px-4 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
           >
+          <Loading />
             Loading...
           </button>
         {:else}
@@ -100,9 +101,39 @@
           <p class="text-sm font-medium text-red-500 dark:text-red-400">
             {review.message}
           </p>
-          <p class="mt-1">{review.response}</p>
+          <p class="mt-1">{review.response}</p> 
         </li>
       {/each}
     </ul>
+  </div> -->
+  
+  
+
+<div class="max-w-3xl w-full m-auto">
+    {#if promise === null}
+      <button
+        on:click={handleClick}
+        type="button"
+        class="py-2 px-4 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+        <Upload />
+        Fix my English!
+      </button>
+    {:else}
+      {#await promise}
+        <button
+          type="button"
+          class="pointer-events-none py-2 px-4 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
+          <Loading />
+          Loading...
+        </button>
+      {/await}
+    {/if}
   </div>
   
+  <div>
+    {#if isCorrect !== null}
+      <p style= "color: {isCorrect ? 'green' : 'red'}" > {isCorrect ? "The input text is correct." : "The input text is incorrect."} </p>
+      <p>Original: <span style="color: {isCorrect ? 'green' : 'red'}">{inputText}</span></p>
+      <p>Corrected: {correctedText} </p>
+    {/if}
+  </div> 
