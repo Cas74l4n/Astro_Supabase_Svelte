@@ -1,6 +1,5 @@
 ---
 import React from "../components/React.svelte";
-import Textarea from "../components/Texarea.svelte";
 import Dash from "../layouts/dashboard.astro";
 
 import { supabase } from "../lib/supabase";
@@ -34,13 +33,15 @@ const email = data?.user?.email;
 
 ---
 
-<Dash title="panel de control z-10">
-    <h1>Bienvenido {email}</h1>
+<Dash title="Fix My English">
+    <h1 class="text-3xl font-bold text-center">Fix my english! 🇬🇧</h1>
+    <!-- <h1>Bienvenido {email}</h1>
     <p>Estamos felices de verte aquí</p>
 
     <form action="/api/auth/signout">
-        <button type="submit">Cerrar sesión</button>
-    </form>
+        <button type="submit">Cerrar sesión</button>    
+    </form> -->
+    
     <React client:visible/>
 </Dash>
 

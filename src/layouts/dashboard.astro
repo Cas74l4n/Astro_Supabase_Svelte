@@ -1,5 +1,6 @@
 ---
 import { supabase } from "../lib/supabase";
+import Out from "../components/icons/Out.svelte";
 
 const { cookies, redirect } = Astro;
 
@@ -48,11 +49,8 @@ const { title } = Astro.props;
     >
         <nav class="border-b dark:bg-zinc-800 dark:border-zinc-700 z-10">
             <div
-                class="flex items-center justify-end sm:justify-between p-4 max-w-screen-xl mx-auto"
-            >
-                <a href="/" class="sm:block font-semibold dark:text-white"
-                    >Astro</a
-                >
+                class="flex items-center justify-end sm:justify-between p-4 max-w-screen-xl mx-auto">
+                <a href="/" class="sm:block font-semibold dark:text-white" >Astro</a>
                 <div>
                     <ul class="font-medium flex gap-8">
                         <li>
@@ -73,9 +71,9 @@ const { title } = Astro.props;
                                 <div
                                     class="px-4 py-3 text-sm text-gray-900 dark:text-white"
                                 >
-                                    <div>Bonnie Green</div>
+                                    <div>Bonnie Green</div> <!-- name@flowbite.com -->
                                     <div class="font-medium truncate">
-                                        name@flowbite.com
+                                        {email}
                                     </div>
                                 </div>
                                 <ul
@@ -84,7 +82,7 @@ const { title } = Astro.props;
                                 >
                                     <li>
                                         <a
-                                            href="#"
+                                            href="/"
                                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >Dashboard
                                         </a>
@@ -93,23 +91,20 @@ const { title } = Astro.props;
                                         <a
                                             href="#"
                                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            >Settings</a
-                                        >
+                                            >Porfile</a>
                                     </li>
                                     <li>
                                         <a
                                             href="#"
                                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            >Earnings</a
-                                        >
+                                            >ChatBoot</a>
                                     </li>
                                 </ul>
                                 <div class="py-1">
                                     <a
                                         href="/api/auth/signout"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                        >Sign out</a
-                                    >
+                                        class="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                        ><Out/></a>
                                 </div>
                             </div>
                         </li>
