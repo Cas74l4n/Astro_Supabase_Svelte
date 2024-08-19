@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/home.astro";
+import Layout from "../layouts/Home.astro";
 
 const { cookies, redirect } = Astro;
 
@@ -7,7 +7,7 @@ const accessToken = cookies.get("sb-access-token");
 const refreshToken = cookies.get("sb-refresh-token");
 
 if (accessToken && refreshToken) {
-  return redirect("/dashboard");
+  return redirect("/dashboard"); // redirect to dashboard if refresh token 
 }
 ---
 
