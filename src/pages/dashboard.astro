@@ -2,35 +2,6 @@
 import React from "../components/React.svelte";
 import Dash from "../layouts/dashboard.astro";
 
-import { supabase } from "../lib/supabase";
-
-const { cookies, redirect } = Astro;
-
-const accessToken = cookies.get("sb-access-token");
-const refreshToken = cookies.get("sb-refresh-token");
-
-if (!accessToken || !refreshToken) {
-    return redirect("/signin");
-}
-
-const { data, error } = await supabase.auth.setSession({
-    refresh_token: refreshToken.value,
-    access_token: accessToken.value,
-});
-
-if (error) {
-    cookies.delete("sb-access-token", {
-        path: "/",
-    });
-    cookies.delete("sb-refresh-token", {
-        path: "/",
-    });
-
-    return redirect("/signin");
-}
-
-const email = data?.user?.email;
-
 ---
 
 <Dash title="Fix My English">

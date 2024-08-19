@@ -1,29 +1,16 @@
 <script>
-  import { onMount } from "svelte";
   import { fixMyEnglish } from "../service/AI.js";
   import Loading from "../components/icons/Loading.svelte";
   import Upload from "../components/icons/Updoad.svelte";
 
-  let reviews = [];
   let promise = null;
   let inputText = "";
   let correctedText = "";
   let isCorrect = null;
-  let value = "";
-
-  async function fetchReviews() {
-    const res = await fetch("/api/StoreConversation");
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.message);
-    }
-
-    reviews = data;
-  }
 
   const handleClick = async () => {
-    inputText = document.getElementById("result").value;
+    inputText = document.getElementById("result").value.trim();
+    if (inputText === "") return; 
     promise = fixMyEnglish(inputText);
     const value = await promise;
 
@@ -38,26 +25,6 @@
     promise = null;
   };
 
-  async function onSubmitHandler(e) {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
-    const message = formData.get("message")?.toString();
-    const response = formData.get("response")?.toString();
-
-    if (!message || !response) return;
-
-    await fetch("/api/StoreConversation", {
-      method: "POST",
-      body: JSON.stringify({ message, response }),
-    });
-
-    fetchReviews();
-  }
-
-  onMount(() => {
-    fetchReviews();
-  });
 </script>
 
 <div class="max-w-3xl w-full mx-auto my-5">
@@ -68,15 +35,16 @@
     name="comment"
     rows="5"
     cols="40"
-    bind:value
   />
+
   <span class=" my-2.5 ">
     {#if promise === null}
     <button
       on:click={handleClick}
       type="button"
       class="py-2 my-2.5 px-4 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
-    >
+      disabled={inputText === ""}
+      >
       <Upload />
       Fix my English!
     </button>
