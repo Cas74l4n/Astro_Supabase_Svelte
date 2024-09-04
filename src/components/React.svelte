@@ -1,13 +1,17 @@
+<!-- Funcionalidades de JS-->
 <script>
+/* Importanciones */
   import { fixMyEnglish } from "../service/AI.js";
   import Loading from "../components/icons/Loading.svelte";
   import Upload from "../components/icons/Updoad.svelte";
-
+/* Variables Reactivas */
   let promise = null;
   let inputText = "";
   let correctedText = "";
   let isCorrect = null;
-
+  
+/* Fncion HandleClick */
+/* Esta funcinalida se ejecuta cuando el usuario hace clic en el boton FixmyEnglish */
   const handleClick = async () => {
     inputText = document.getElementById("result").value.trim();
     if (inputText === "") return;
@@ -21,22 +25,24 @@
     } else {
       isCorrect = false;
     }
-
     promise = null;
   };
 
 </script>
 
+<!-- Esctructura de HMTL y Logica de Renderizado -->
 <div class="max-w-3xl w-full mx-auto my-5">
+  <!-- Area de Texto -->
   <textarea
     id="result"
-    class="max-w-3xl w-full m-auto text-base pl-2.5 text-gray-700 placeholder-gray-400 bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+    class="max-w-3xl w-full m-auto text-base pl-2.5 text-gray-100 placeholder-gray-400 bg-gray-700 border border-gray-900 rounded-lg appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
     placeholder="Put your english to fix"
     name="comment"
     rows="5"
     cols="40"
   />
 
+  <!-- Boton FixmyEnglish -->
   <span class=" my-2.5 ">
     {#if promise === null}
     <button
@@ -59,7 +65,8 @@
     {/await}
   {/if}
   </span>
-  
+
+  <!-- Respuesta de la IA -->
   <div>
     {#if isCorrect !== null}
       <p style="color: {isCorrect ? 'green' : 'red'}">

@@ -1,38 +1,14 @@
 ---
-import { supabase } from "../lib/supabase";
-
-const { cookies, redirect } = Astro;
-
-const accessToken = cookies.get("sb-access-token");
-const refreshToken = cookies.get("sb-refresh-token");
-
-if (!accessToken || !refreshToken) {
-    return redirect("/signin");
-}
-
-const { data, error } = await supabase.auth.setSession({
-    refresh_token: refreshToken.value,
-    access_token: accessToken.value,
-});
-
-if (error) {
-    cookies.delete("sb-access-token", {
-        path: "/",
-    });
-    cookies.delete("sb-refresh-token", {
-        path: "/",
-    });
-
-    return redirect("/signin");
-}
-
-const email = data?.user?.email;
-
 interface Props {
-    title: string;
+  title: string;
 }
 
+// Acceder a la propiedad desde los props
 const { title } = Astro.props;
+
+// Acceder al email que fue almacenado en locals por el middleware
+const { locals } = Astro;
+const email = locals.email;
 ---
 
 <!-- ya con el inicio de seccion -->
@@ -40,7 +16,7 @@ const { title } = Astro.props;
     <head>
         <title>{title}</title>
         <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="con" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     </head>
