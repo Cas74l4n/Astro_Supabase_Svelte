@@ -15,7 +15,13 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     password,
   });
 
+  /* if (error) {
+    return new Response(error.message, { status: 500 });
+  } */
   if (error) {
+    if (error.message.includes("already registered")) {
+      return new Response("Este correo ya está registrado", { status: 400 });
+    }
     return new Response(error.message, { status: 500 });
   }
 

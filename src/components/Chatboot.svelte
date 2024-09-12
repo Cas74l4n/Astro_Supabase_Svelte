@@ -23,16 +23,32 @@
     }
   } */
     </script>
+
+        /* // Regex to disallow special characters and numbers as a single word
+        const regex = /^[a-zA-Z\s]+$/;
+
+        if (!submittedText || !regex.test(submittedText)) {
+            alert("Please enter a valid input without special characters or numbers.");
+            return;
+        } */
+
 -->
-<script>
+
+<script lang="ts">
     import { fixMyEnglish } from "../service/AI";
     import { onMount } from "svelte";
 
-    const text = "Hello! How can I help you, today?";
+    // Definir las variables reactivas
+    let text = "Hello! How can I help you, today?";
     let displayText = "";
     let index = 0;
     const typingSpeed = 50; // Velocidad del efecto (en milisegundos)
 
+    let inputText = ""; // Valor actual del input
+    let submittedText = ""; // Texto que se ha enviado
+    let correctText = ""; // Texto corregido devuelto por el servicio
+
+    // Efecto de escritura
     onMount(() => {
         const typingInterval = setInterval(() => {
             if (index < text.length) {
@@ -44,36 +60,19 @@
         }, typingSpeed);
     });
 
-    let promise = null;
-    let inputText = ""; // Current input value
-    let submittedText = ""; // Text that has been submitted
-    let correctText = ""; // Corrected text returned from the service
-
+    // Manejar el envío de texto
     const handleClick = async () => {
-        submittedText  = document.getElementById("result").value.trim();
-        /* // Regex to disallow special characters and numbers as a single word
-        const regex = /^[a-zA-Z\s]+$/;
+        if (!inputText.trim()) return; // Verificar que el input no esté vacío
 
-        if (!submittedText || !regex.test(submittedText)) {
-            alert("Please enter a valid input without special characters or numbers.");
-            return;
-        } */
-       
-        if (submittedText  === "") return;
+        submittedText = inputText;
+        correctText = await fixMyEnglish(submittedText);
 
-        promise = fixMyEnglish(submittedText);
-        const value = await promise;
-        correctText = value;
-
-        /* Clear Input */
-        inputText= "";
-        document.getElementById("result").value = "";
-
-        promise = null;
+        // Limpiar el input
+        inputText = "";
     };
 </script>
 
-<!-- Left Message (Text with typing effect) -->
+<!-- Mensaje con el efecto de escritura -->
 {#if displayText}
     <div class="flex items-start">
         <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-xs">
@@ -82,7 +81,7 @@
     </div>
 {/if}
 
-<!-- Right Message (User input) -->
+<!-- Mensaje de texto enviado por el usuario -->
 {#if submittedText}
     <div class="flex items-end justify-end">
         <div class="bg-blue-500 text-white p-3 rounded-lg max-w-xs">
@@ -91,7 +90,7 @@
     </div>
 {/if}
 
-<!-- Left Message (Corrected text) -->
+<!-- Mensaje con el texto corregido -->
 {#if correctText}
     <div class="flex items-start">
         <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-xs">
@@ -100,12 +99,12 @@
     </div>
 {/if}
 
-<!-- Input Box  Binds the input value to inputText -->
-<div class="border-t p-3 flex items-center mt-2.5">
+<!-- Caja de entrada para el usuario -->
+<div class="border-t p-3 flex items-end mt-2.5">
     <input
         id="result"
         type="text"
-        bind:value={inputText} 
+        bind:value={inputText}
         placeholder="Type a message..."
         class="flex-1 border rounded-lg p-2 mr-2 text-zinc-700"
     />
@@ -118,3 +117,4 @@
         Send
     </button>
 </div>
+
