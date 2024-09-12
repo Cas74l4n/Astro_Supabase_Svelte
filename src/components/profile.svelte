@@ -269,6 +269,8 @@ Aquí podrías mostrar las conversaciones obtenidas
 
 <script>
     export let conversation = []; // Definir la prop 'conversation'
+    console.log('conversation');
+    
 </script>
 
 <ul>

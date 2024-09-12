@@ -1,6 +1,8 @@
 ---
 import Dash from "../layouts/dashboard.astro";
 import Profil from "../components/profile.svelte";
+import { supabase } from "../lib/supabase";
+import { date } from "astro:schema";
 
 // Obtener las cookies del servidor
 const baseURL = import.meta.env.SUPABASE_URL || 'http://localhost:4321'; 
@@ -8,8 +10,13 @@ const apiUrl = `${baseURL}/api/StoreConversation`;
 
 console.log('Fetching data from:', apiUrl);
 
-const res = await fetch(apiUrl);
-const data = await res.json();
+// const res = await fetch(apiUrl);
+// const data = await res.json();
+
+// en lugar del fetch se utilizo supabase y desestructuración de la data para evitar errores en el tipado
+const  { data }  =  await supabase.from('StoreConversation').select('*') 
+
+
 ---
 
 <Dash title="Dashboard">
