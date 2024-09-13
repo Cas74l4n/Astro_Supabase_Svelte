@@ -269,15 +269,52 @@ Aquí podrías mostrar las conversaciones obtenidas
 
 <script>
     export let conversation = []; // Definir la prop 'conversation'
-    console.log('conversation');
+    /* console.log('conversation'); */
     
 </script>
 
-<ul>
-    {#each conversation as entry}
-        <li>
-            <p><strong>Message:</strong> {entry.message}</p>
-            <p><strong>Response:</strong> {entry.response}</p>
-        </li>
-    {/each}
+<ul class="conversation-list">
+  {#each conversation as entry}
+    <li class="conversation-item">
+      <div class="message">
+        <p class="UUID"><strong>UUID:</strong> {entry.userId}</p>
+        <p class="user"><strong>Message:</strong> {entry.message}</p>
+        <p class="bot"><strong>Response:</strong> {entry.response}</p>
+      </div>
+      <div class="timestamp">
+        <p>{entry.created_at}</p>
+      </div>
+    </li>
+  {/each}
 </ul>
+
+<style>
+  .conversation-list {
+  padding: 20px;
+}
+
+.conversation-item {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+}
+
+.message {
+  margin-bottom: 5px;
+}
+
+.UUID {
+  color: wheat;
+}
+.user {
+  color: blue;
+}
+
+.bot {
+  color: green;
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #999;
+}
+</style>

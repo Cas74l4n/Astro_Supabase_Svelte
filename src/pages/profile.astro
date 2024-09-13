@@ -2,26 +2,53 @@
 import Dash from "../layouts/dashboard.astro";
 import Profil from "../components/profile.svelte";
 import { supabase } from "../lib/supabase";
-import { date } from "astro:schema";
-
-// Obtener las cookies del servidor
-const baseURL = import.meta.env.SUPABASE_URL || 'http://localhost:4321'; 
-const apiUrl = `${baseURL}/api/StoreConversation`;
-
-console.log('Fetching data from:', apiUrl);
-
-// const res = await fetch(apiUrl);
-// const data = await res.json();
-
-// en lugar del fetch se utilizo supabase y desestructuración de la data para evitar errores en el tipado
-const  { data }  =  await supabase.from('StoreConversation').select('*') 
+const { email } = Astro.locals;
 
 
+// Obtener el token de autenticación desde las cookies
+const access_token = Astro.cookies.get("sb-access-token")?.value;
+
+if (!access_token) {
+  throw new Error("No autenticado");
+}
+
+// Autenticación del usuario
+const { data: authData, error: authError } = await supabase.auth.getUser(access_token);
+
+if (authError) {
+  const errorMessage = authError?.message || "Error desconocido de autenticación";
+  
+  // Verificar si el mensaje del error es debido a un token expirado
+  if (errorMessage.includes('Token expired')) {
+    console.error('Token expirado. Redirigiendo al inicio de sesión.');
+    // Aquí puedes implementar la lógica para redirigir al login o refrescar el token
+    // Por ejemplo, redirigir al login:
+    // window.location.href = '/login';
+  } else {
+    console.error(`Error en supabase.auth.getUser: ${errorMessage}`);
+    throw new Error(`Error de autenticación: ${errorMessage}`);
+  }
+}
+
+if (!authData?.user) {
+  console.error("No se encontró el usuario autenticado.");
+  throw new Error("Error de autenticación: No se encontró el usuario.");
+}
+
+// Obtener las conversaciones desde la base de datos de Supabase
+const { data: conversations, error } = await supabase
+  .from('StoreConversation')
+  .select("userId, message, response, created_at")
+  .eq('userId', authData.user.id) // Filtrar por el usuario autenticado
+  .order("created_at", { ascending: false });
+
+if (error) {
+  throw new Error("Error al obtener las conversaciones");
+}
 ---
 
 <Dash title="Dashboard">
-  <section class="py-24 px-4 w-full flex flex-col items-center gap-2">
-    <Profil conversation={data} client:load />
+  <section class="px-4 w-full flex flex-col items-center gap-2">
+    <Profil conversation={conversations} client:load />
   </section>
-  
 </Dash>
