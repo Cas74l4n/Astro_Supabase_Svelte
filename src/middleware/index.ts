@@ -4,7 +4,7 @@ import micromatch from "micromatch";
 import type { AstroCookies } from "astro";
 
 // Definir rutas protegidas y de redirección
-const protectedRoutes = ["/dashboard(|/)"];
+const protectedRoutes = ["/corrector(|/)", "/profile(|/)", "/chatboot(|/)"]; // Le pongo el cooreo a las diferentes secciones
 const redirectRoutes = ["/signin(|/)", "/register(|/)"];
 const protectedAPIRoutes = ["/api/StoreConversation(|/)"];
 

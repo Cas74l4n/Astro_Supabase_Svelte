@@ -1,6 +1,49 @@
 ---
 import Dash from "../layouts/dashboard.astro";
 import Chat from "../components/Chatboot.svelte";
+import { supabase } from "../lib/supabase";
+
+// Obtener el token de autenticación desde las cookies
+const access_token = Astro.cookies.get("sb-access-token")?.value;
+
+if (!access_token) {
+  throw new Error("No autenticado");
+}
+
+// Autenticación del usuario
+const { data: authData, error: authError } = await supabase.auth.getUser(access_token);
+
+if (authError) {
+  const errorMessage = authError?.message || "Error desconocido de autenticación";
+  
+  // Verificar si el mensaje del error es debido a un token expirado
+  if (errorMessage.includes('Token expired')) {
+    console.error('Token expirado. Redirigiendo al inicio de sesión.');
+    // Aquí puedes implementar la lógica para redirigir al login o refrescar el token
+    // Por ejemplo, redirigir al login:
+    window.location.href = '/corrector';
+  } else {
+    console.error(`Error en supabase.auth.getUser: ${errorMessage}`);
+    throw new Error(`Error de autenticación: ${errorMessage}`);
+  }
+}
+
+if (!authData?.user) {
+  console.error("No se encontró el usuario autenticado.");
+  throw new Error("Error de autenticación: No se encontró el usuario.");
+}
+
+// Obtener las conversaciones desde la base de datos de Supabase
+const { data: conversations, error } = await supabase
+  .from('StoreConversation')
+  .select("userId, message, response, created_at")
+  .eq('userId', authData.user.id) // Filtrar por el usuario autenticado
+  .order("created_at", { ascending: true });
+
+if (error) {
+  throw new Error("Error al obtener las conversaciones");
+}
+
 ---
 
 <!-- Chat Boot -->
@@ -10,77 +53,7 @@ import Chat from "../components/Chatboot.svelte";
         <div class="bg-gray-900 w-full max-w-5xl shadow-lg rounded-lg py-4 pl-4 pr-1 flex flex-col h-[90vh]">
             <!-- Chat Messages -->
             <div class="flex-1 overflow-y-auto space-y-4 pb-2.5 pr-2">
-                
-                <!-- Left Message -->
-<!--                 <div class="flex items-start">
-                    <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-xs">
-                        <p>Hello, how can I help you?</p>
-                    </div>
-                </div> -->
-                <!-- Right Message -->
-                <!-- <div class="flex items-end justify-end">
-                    <div class="bg-blue-500 text-white p-3 rounded-lg max-w-xs">
-                        <p></p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-xs">
-                        <p></p>
-                    </div>
-                </div> -->
-                <Chat client:visible/>
-                <!-- More Messages -->
-                <!-- <div class="flex items-start">
-                    <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-xs">
-                        <p>Thanks, you're the best!</p>
-                    </div>
-                </div>
-                <div class="flex items-end justify-end">
-                    <div class="bg-blue-500 text-white p-3 rounded-lg max-w-xs">
-                        <p>Anytime! Let me know how you like it. 😊</p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-xs">
-                        <p>So, pizza next week, right?</p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-xs">
-                        <p>Hooray!!</p>
-                    </div>
-                </div>
-                <div class="flex items-end justify-end">
-                    <div class="bg-blue-500 text-white p-3 rounded-lg max-w-xs">
-                        <p>Absolutely! Can't wait for our pizza date. 🍕</p>
-                    </div>
-                </div>
-                <div class="flex items-end justify-end">
-                    <div class="bg-blue-500 text-white p-3 rounded-lg max-w-xs">
-                        <p>Absolutely! Can't wait for our pizza date. 🍕</p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-xs">
-                        <p>Hooray!!</p>
-                    </div>
-                </div>
-                <div class="flex items-end justify-end">
-                    <div class="bg-blue-500 text-white p-3 rounded-lg max-w-xs">
-                        <p>Absolutely! Can't wait for our pizza date. 🍕</p>
-                    </div>
-                </div>
-                <div class="flex items-end justify-end">
-                    <div class="bg-blue-500 text-white p-3 rounded-lg max-w-xs">
-                        <p>Absolutely! Can't wait for our pizza date. 🍕</p>
-                    </div>
-                </div>
-            </div> 
-            -->
-    
-
-
-
+                <Chat conversation={conversations} client:visible/>
         </div>
     </section>
 </Dash>

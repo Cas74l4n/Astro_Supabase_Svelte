@@ -2,8 +2,6 @@
 import Dash from "../layouts/dashboard.astro";
 import Profil from "../components/profile.svelte";
 import { supabase } from "../lib/supabase";
-const { email } = Astro.locals;
-
 
 // Obtener el token de autenticación desde las cookies
 const access_token = Astro.cookies.get("sb-access-token")?.value;
@@ -23,7 +21,7 @@ if (authError) {
     console.error('Token expirado. Redirigiendo al inicio de sesión.');
     // Aquí puedes implementar la lógica para redirigir al login o refrescar el token
     // Por ejemplo, redirigir al login:
-    // window.location.href = '/login';
+    window.location.href = '/corrector';
   } else {
     console.error(`Error en supabase.auth.getUser: ${errorMessage}`);
     throw new Error(`Error de autenticación: ${errorMessage}`);
@@ -48,7 +46,7 @@ if (error) {
 ---
 
 <Dash title="Dashboard">
-  <section class="px-4 w-full flex flex-col items-center gap-2">
+  <section class="px-4 w-full flex flex-col items-center gap-2 overflow-auto	">
     <Profil conversation={conversations} client:load />
   </section>
 </Dash>
