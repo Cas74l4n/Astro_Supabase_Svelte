@@ -4,17 +4,18 @@
   
     export let conversation = []; // Recibe la lista de conversaciones como una prop
   
-    let text = "Hello! How can I help you, today?";
+    /* let text = "Hello! How can I help you, today?";
     let displayText = "";
     let index = 0;
-    const typingSpeed = 50;
+    const typingSpeed = 50; */
   
     let inputText = ""; // Valor actual del input
     let submittedText = ""; // Texto que se ha enviado
     let correctText = ""; // Texto corregido devuelto por el servicio
   
     // Efecto de escritura
-    onMount(() => {
+
+    /* onMount(() => {
       const typingInterval = setInterval(() => {
         if (index < text.length) {
           displayText += text[index];
@@ -23,7 +24,7 @@
           clearInterval(typingInterval);
         }
       }, typingSpeed);
-    });
+    }); */
   
     // Manejar el envío de texto
     const handleClick = async () => {
@@ -71,13 +72,13 @@
   </script>
   
   <!-- Mensaje con el efecto de escritura -->
-  {#if displayText}
+  <!-- {#if displayText}
     <div class="flex items-start">
       <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-xs">
         <p>{displayText}</p>
       </div>
     </div>
-  {/if}
+  {/if} -->
   
   <!-- Mostrar las conversaciones -->
   {#each conversation as entry}

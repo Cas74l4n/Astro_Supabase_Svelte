@@ -1,56 +1,59 @@
-# Esta es la Rama de Produccion
+# Proyecto Astro
 
-# Astro Starter Kit: Basics
+Este proyecto está configurado para desplegarse en Vercel. La rama `DevVercel` se utiliza para gestionar y probar el despliegue en el entorno de Vercel antes de fusionar los cambios a la rama principal `main`.
 
-```sh
-npm create astro@latest -- --template basics
-```
+## Configuración del Proyecto
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+1. **Instalación**: Asegúrate de tener todas las dependencias instaladas:
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+    ```bash
+    npm install
+    ```
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+2. **Configuración de Vercel**: Este proyecto utiliza el adaptador de Vercel para Astro. Si necesitas realizar cambios en la configuración para Vercel, modifica el archivo `astro.config.mjs`.
 
-## 🚀 Project Structure
+## Despliegue
 
-Inside of your Astro project, you'll see the following folders and files:
+### Desplegar en Vercel
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Para desplegar la rama `DevVercel` en Vercel, sigue estos pasos:
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+1. **Crea y cambia a la rama `DevVercel`**:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+    ```bash
+    git checkout -b DevVercel
+    ```
 
-Any static assets, like images, can be placed in the `public/` directory.
+2. **Realiza los cambios necesarios en la configuración para Vercel**.
 
-## 🧞 Commands
+3. **Realiza un commit y empuja la nueva rama**:
 
-All commands are run from the root of the project, from a terminal:
+    ```bash
+    git add .
+    git commit -m "Configurar despliegue en Vercel para la rama DevVercel"
+    git push origin DevVercel
+    ```
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+4. **Desplegar en Vercel**:
 
-## 👀 Want to learn more?
+    Asegúrate de estar logueado en Vercel:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+    ```bash
+    vercel login
+    ```
+
+    Luego, despliega la rama `DevVercel`:
+
+    ```bash
+    vercel --prod --branch=DevVercel
+    ```
+
+5. **Verifica el despliegue**: Vercel te proporcionará una URL de previsualización para la rama `DevVercel`. Visita esa URL para asegurarte de que todo funciona como esperas.
+
+## Notas
+
+- **Rama Principal**: La rama `main` no se verá afectada hasta que los cambios en la rama `DevVercel` sean aprobados y fusionados.
+- **Problemas**: Si encuentras problemas durante el despliegue, revisa la configuración y los registros de Vercel para solucionar los errores.
+
+Para más detalles sobre el uso de Vercel con Astro, consulta la [documentación de Vercel](https://vercel.com/docs) y la [documentación de Astro](https://docs.astro.build).
+
