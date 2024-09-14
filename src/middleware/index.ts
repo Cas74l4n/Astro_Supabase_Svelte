@@ -66,7 +66,7 @@ export const onRequest = defineMiddleware(
   if (micromatch.isMatch(pathname, redirectRoutes)) {
     const { data } = await verifySession(cookies);
     if (data) {
-      return redirect("/profile");
+      return redirect("/corrector");
     }
   }
 
