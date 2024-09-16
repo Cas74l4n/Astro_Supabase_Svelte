@@ -24,3 +24,8 @@ pnpm-debug.log*
 .idea/
 +
 pnpm-config.
+
+# Solo si no lo necesito.
+#astro.config.mjs
+#package-lock.json
+#package.json

@@ -1,6 +1,9 @@
 ---
 import Base from "../layouts/Home.astro";
 import Astroicon from "../components/icons/AstroIcon.astro";
+import Svelte from "../components/icons/Svelte_Logo.astro";
+import CohereNew from "../components/icons/CohereNew.astro";
+
 
 export const prerender = true;
 const title = "Bienvenido a Fix my english.";
@@ -20,13 +23,13 @@ const title = "Bienvenido a Fix my english.";
       <li
         class="dark:bg-zinc-800 bg-white border-t dark:border-zinc-700 h-20 w-20 border-transparent rounded-lg shadow dark:shadow-none flex items-center justify-center"
       >
-        
+      <Svelte/>
       </li>
       &plus;
       <li
         class="dark:bg-zinc-800 bg-white border-t dark:border-zinc-700 h-20 w-20 border-transparent rounded-lg shadow dark:shadow-none flex items-center justify-center"
       >
-        
+       <CohereNew/>
       </li>
     </ul>
     <p class="mt-6 max-w-prose">Esta página fue renderizada previamente en el momento de la compilación.</p>
@@ -35,8 +38,8 @@ const title = "Bienvenido a Fix my english.";
       class="font-mono max-w-prose underline underline-offset-2 hover:text-blue-700 text-blue-600 dark:text-blue-500 dark:hover:text-blue-400"
       >Source code on GitHub</a
     > -->
-    <a
-      href="https://github.com/Cas74l4n/my-astro-app"
+    <a target="_blank"
+      href="https://github.com/Cas74l4n/Astro_Supabase_Svelte"
       class="font-mono max-w-prose underline underline-offset-2 hover:text-blue-700 text-blue-600 dark:text-blue-500 dark:hover:text-blue-400"
       >Source code on GitHub</a
     >
