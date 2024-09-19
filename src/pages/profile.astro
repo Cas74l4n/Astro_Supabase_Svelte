@@ -1,7 +1,7 @@
 ---
-import Dash from "../layouts/dashboard.astro";
+import Navbar from "../layouts/Navbar.astro";
 import Profil from "../components/profile.svelte";
-import { supabase } from "../lib/supabase";
+/* import { supabase } from "../lib/supabase";
 
 // Obtener el token de autenticación desde las cookies
 const access_token = Astro.cookies.get("sb-access-token")?.value;
@@ -42,11 +42,11 @@ const { data: conversations, error } = await supabase
 
 if (error) {
   throw new Error("Error al obtener las conversaciones");
-}
+} */
 ---
 
-<Dash title="Dashboard">
+<Navbar title="Dashboard">
   <section class="px-4 w-full flex flex-col items-center gap-2 overflow-auto	">
-    <Profil conversation={conversations} client:load />
+    <Profil client:load />
   </section>
-</Dash>
+</Navbar>

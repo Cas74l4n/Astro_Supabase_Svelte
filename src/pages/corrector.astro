@@ -1,28 +1,9 @@
 ---
 import React from "../components/React.svelte";
-import Dash from "../layouts/dashboard.astro";
+import Navbar from "../layouts/Navbar.astro";
 ---
 
-<Dash title="Fix My English">
+<Navbar title="Fix My English">
     <h1 class="text-3xl font-bold text-center">Fix my english! 🇬🇧</h1>
     <React client:load/>
-</Dash>
-
-<style>
-    p,
-    h1,
-    form {
-        text-align: center;
-        color: white;
-    }
-    p ,h1{
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-    form > button {
-        border: solid 1px;
-        margin-top: 10px;
-        padding: 10px;
-        border-radius: solid 12px white;
-    }
-</style>
+</Navbar>

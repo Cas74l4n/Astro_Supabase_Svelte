@@ -1,5 +1,4 @@
 ---
-
 interface Props {
   title: string;
 }
@@ -19,6 +18,7 @@ const email = locals.email;
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     </head>
     <body class="flex flex-col h-full w-full dark:bg-zinc-900 bg-zinc-50 dark:text-zinc-100">
@@ -48,27 +48,32 @@ const email = locals.email;
                     >
                       <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
                         <div>Bonnie Green</div>
+                        
                         <div class="font-medium truncate">{email}</div>
                       </div>
                       <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+
                         <li>
                           <a
                             href="/corrector"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          ><i class="fas fa-tachometer-alt mr-2"></i>Corrector</a>
+                          > <i class="fa fa-book mr-2"></i> Corrector</a>
                         </li>
+
+                        <li>
+                          <a
+                            href="/chatboot"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          ><i class="fa fa-comments mr-2"></i>Chat Boot</a>
+                        </li>
+
                         <li>
                           <a
                             href="/profile"
                             class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           ><i class="fas fa-user mr-2"></i>Profile</a>
                         </li>
-                        <li>
-                          <a
-                            href="/chatboot"
-                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                          ><i class="fas fa-comments mr-2"></i>Chat Boot</a>
-                        </li>
+
                       </ul>
                       <div class="py-1">
                         <a
