@@ -31,12 +31,12 @@ Sigue estos pasos para ejecutar el proyecto localmente:
    1.2 *Ramas del proyecto*
     - El proyecto tiene dos ramas:
      - `Main`: Esta rama se utiliza para el despliegue en **Vercel**.
-     - `DevVercel`: Esta rama es para el desarrollo local.
+     - `Local`: Esta rama es para el desarrollo local.
 
-   Asegúrate de trabajar en la rama correcta según lo que necesites. Si deseas desarrollar localmente, debes cambiar a la rama `DevVercel`.
+   Asegúrate de trabajar en la rama correcta según lo que necesites. Si deseas desarrollar localmente, debes cambiar a la rama `Local`.
 
    ```bash
-   git checkout DevVercel
+   git checkout Local
    ```
 
 2. **Correr el proyecto en local**
