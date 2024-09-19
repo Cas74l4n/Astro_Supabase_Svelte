@@ -1,54 +1,52 @@
-# Astro Starter Kit: Basics
+# Proyecto Astro-Supabase-Svelte
 
-```sh
-npm create astro@latest -- --template basics
-```
+Este proyecto está construido utilizando [Astro](https://astro.build/), [Supabase](https://supabase.io/) y [Svelte](https://svelte.dev/). A continuación, se explican las dos ramas disponibles en el repositorio y cómo se gestionan los despliegues.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Ramas del Proyecto
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+### 1. `main`
+La rama `main` es la rama principal del proyecto, destinada para el despliegue en producción. Cualquier cambio que se quiera publicar en el entorno de producción, debe ser fusionado primero en esta rama.
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+- **Propósito**: Desplegar la versión final en producción (ejemplo: Vercel).
+- **Despliegue**: Cada vez que se realice un commit en `main`, se activará el proceso de despliegue en la plataforma de producción configurada (por ejemplo, Vercel).
 
-## 🚀 Project Structure
+### 2. `DevVercel`
+La rama `DevVercel` es utilizada para el desarrollo y pruebas locales. Permite realizar cambios sin afectar la versión en producción.
 
-Inside of your Astro project, you'll see the following folders and files:
+- **Propósito**: Desarrollo local y pruebas.
+- **Despliegue**: No se despliega automáticamente. Esta rama se usa para preparar cambios que luego serán fusionados en `main`.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Despliegue
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Desplegar en Producción
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Para desplegar en producción, simplemente sigue estos pasos:
 
-Any static assets, like images, can be placed in the `public/` directory.
+1. Realiza los cambios necesarios en la rama `DevVercel`.
+2. Asegúrate de que todo funciona correctamente realizando pruebas locales.
+3. Una vez que los cambios estén listos, realiza un **merge** de la rama `DevVercel` en la rama `main`.
+4. El despliegue en Vercel se activará automáticamente cuando los cambios lleguen a `main`.
 
-## 🧞 Commands
+### Pasos para Despliegue
 
-All commands are run from the root of the project, from a terminal:
+1. **Instalar dependencias**:
+   ```bash
+   npm install
+   ```
+2. **Crear el archivo de variables de entorno: Crea un archivo .env en la raíz del proyecto y agrega las siguientes variables**:
+    ```.env
+    SUPABASE_URL=
+    SUPABASE_ANON_KEY=
+    ```
+3. **Despliegue en Vercel**: 
+    El despliegue se realiza automáticamente desde la rama `main` a través de Vercel, utilizando el adaptador `@astrojs/vercel`.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Resumen del Proyecto
+Este proyecto utiliza Supabase como backend para autenticar usuarios y almacenar datos en tiempo real. La UI está desarrollada con Svelte y TailwindCSS para un diseño moderno y rápido.
 
-## 👀 Want to learn more?
+- **Frameworks:** Astro, Svelte-
+- **Backend:** Supabase
+- **Deploy:** Vercel
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+
