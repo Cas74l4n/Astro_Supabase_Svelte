@@ -1,7 +1,6 @@
 <script lang="ts">
+  import { onMount, afterUpdate } from "svelte";
   import { fixMyEnglish } from "../service/AI";
-  //import { onMount } from "svelte";
-
   export let conversation = []; // Recibe la lista de conversaciones como una prop
 
   /* let text = "Hello! How can I help you, today?";
@@ -12,6 +11,22 @@
   let inputText = ""; // Valor actual del input
   let submittedText = ""; // Texto que se ha enviado
   let correctText = ""; // Texto corregido devuelto por el servicio
+  let messagesEnd: HTMLDivElement; // Elemento al final del contenedor de mensajes
+
+  // Función para desplazar el scroll hacia el final
+  const scrollToBottom = () => {
+    messagesEnd.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Desplazar el scroll al cargar la página
+  onMount(() => {
+    scrollToBottom();
+  });
+
+   // Desplazar el scroll cada vez que se actualicen las conversaciones
+   afterUpdate(() => {
+    scrollToBottom();
+  });
 
   // Efecto de escritura
 
@@ -51,6 +66,9 @@
         console.error("Error al almacenar la conversación:", errorData);
       } else {
         console.log("Conversación almacenada exitosamente");
+        const responseData = await res.json();
+        console.log("Respuesta del servidor:", responseData); // Revisa la respuesta del servidor
+        console.log("Perfil actualizado exitosamente");
 
         /* Se Hace el GET a Supabase */
         // Obtener la nueva lista de conversaciones
@@ -82,13 +100,13 @@
   {/if} -->
 
 <!-- Mostrar las conversaciones -->
-<div>
+<div class="relative">
   {#each conversation as entry}
     <!-- Mensaje enviado por el usuario -->
     {#if entry.userId !== ""}
       <!-- Cambia la lógica correcta -->
       <div class="flex items-end justify-end">
-        <div class="bg-blue-500 text-white p-3 rounded-lg max-w-xs my-2">
+        <div class="bg-blue-500 text-white p-3 rounded-lg max-w-[35rem] my-2">
           <p>{entry.message}</p>
         </div>
       </div>
@@ -98,16 +116,21 @@
     {#if entry.userId !== ""}
       <!-- Cambia la lógica si es necesario -->
       <div class="flex items-start">
-        <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-xs my-2">
+        <div class="bg-pink-100 text-pink-900 p-3 rounded-lg max-w-[35rem] my-2">
           <p>{entry.response}</p>
         </div>
       </div>
     {/if}
   {/each}
+
+  <!-- Elemento invisible para el scroll al final -->
+  <div bind:this={messagesEnd}></div>
 </div>
 
 <!-- Caja de entrada para el usuario -->
-<div class="border-t p-3 mt-2.5 bg-gray-800">
+<div
+  class="border-t p-3 bg-gray-800 fixed bottom-0 left-0 right-0 max-w-5xl mx-auto"
+>
   <div class="flex space-x-2">
     <input
       id="result"

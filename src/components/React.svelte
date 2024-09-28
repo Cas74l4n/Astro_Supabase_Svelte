@@ -14,7 +14,9 @@
   /* Esta funcinalida se ejecuta cuando el usuario hace clic en el boton FixmyEnglish */
   const handleClick = async () => {
     inputText = document.getElementById("result").value.trim();
+    
     if (inputText === "") return;
+
     promise = fixMyEnglish(inputText);
     const value = await promise;
 

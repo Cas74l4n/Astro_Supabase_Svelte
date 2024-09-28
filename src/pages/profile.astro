@@ -1,7 +1,7 @@
 ---
 import Navbar from "../layouts/Navbar.astro";
 import Profil from "../components/profile.svelte";
-/* import { supabase } from "../lib/supabase";
+import { supabase } from "../lib/supabase";
 
 // Obtener el token de autenticación desde las cookies
 const access_token = Astro.cookies.get("sb-access-token")?.value;
@@ -27,6 +27,7 @@ if (authError) {
     throw new Error(`Error de autenticación: ${errorMessage}`);
   }
 }
+const userId = authData.user.id; // Ahora accedemos al ID del usuario autenticado
 
 if (!authData?.user) {
   console.error("No se encontró el usuario autenticado.");
@@ -34,19 +35,19 @@ if (!authData?.user) {
 }
 
 // Obtener las conversaciones desde la base de datos de Supabase
-const { data: conversations, error } = await supabase
-  .from('StoreConversation')
-  .select("userId, message, response, created_at")
-  .eq('userId', authData.user.id) // Filtrar por el usuario autenticado
-  .order("created_at", { ascending: false });
+const { data: dProfiles, error } = await supabase
+  .from('profiles')
+  .select("id, display_name, bio")
+  .eq('id', userId) // Filtrar por el usuario autenticado
 
 if (error) {
   throw new Error("Error al obtener las conversaciones");
-} */
+} 
+
 ---
 
-<Navbar title="Dashboard">
-  <section class="px-4 w-full flex flex-col items-center gap-2 overflow-auto	">
-    <Profil client:load />
+<Navbar title="Perfil">
+  <section class="p-6 w-full flex flex-col items-center gap-2 overflow-auto	">
+    <Profil dataProfile={dProfiles} client:load />
   </section>
 </Navbar>

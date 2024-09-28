@@ -35,9 +35,13 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     password,
   });
 
-  if (error) {
+  /* if (error) {
     return new Response(error.message, { status: 500 });
-  }
+  } */
+    if (error) {
+      console.error("Error Correo electrónico o contraseña");
+      return redirect("/signin")
+    }
 
   const { access_token, refresh_token } = data.session;
   cookies.set("sb-access-token", access_token, {

@@ -9,6 +9,41 @@ const { title } = Astro.props;
 // Acceder al email que fue almacenado en locals por el middleware
 const { locals } = Astro;
 const email = locals.email;
+
+import { supabase } from '../lib/supabase'; 
+
+const access_token = Astro.cookies.get("sb-access-token")?.value;
+
+if (!access_token) {
+  throw new Error("No autenticado");
+}
+
+const { data: authData, error: authError } = await supabase.auth.getUser(access_token);
+
+if (authError) {
+  const errorMessage = authError?.message || "Error desconocido de autenticación";
+  
+  if (errorMessage.includes('Token expired')) {
+    console.error('Token expirado. Redirigiendo al inicio de sesión.');
+    window.location.href = '/login';
+  } else {
+    console.error(`Error en supabase.auth.getUser: ${errorMessage}`);
+    throw new Error(`Error de autenticación: ${errorMessage}`);
+  }
+}
+
+if (!authData?.user) {
+  console.error("No se encontró el usuario autenticado.");
+  throw new Error("Error de autenticación: No se encontró el usuario.");
+}
+
+const { data: profileData } = await supabase
+  .from('profiles')
+  .select('display_name')
+  .eq('id', authData.user.id)
+  .single();
+
+const display_name = profileData.display_name;
 ---
 
 <!-- ya con el inicio de seccion -->
@@ -18,17 +53,19 @@ const email = locals.email;
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     </head>
-    <body class="flex flex-col h-full w-full dark:bg-zinc-900 bg-zinc-50 dark:text-zinc-100">
+    <body class="flex flex-col h-full w-full dark:bg-zinc-900 bg-zinc-50 dark:text-zinc-100 overflow-hidden">
         <nav class="border-b dark:bg-zinc-800 dark:border-zinc-700 z-10">
           <div class="flex items-center justify-end sm:justify-between p-4 max-w-screen-xl mx-auto">
-            <a href="/" class="sm:block font-semibold dark:text-white">Inicio</a>
+            <a href="/" class="flex flex-auto sm:block font-semibold dark:text-white">Inicio</a>
             <div>
               <ul class="font-medium flex gap-8">
                 <li>
                   <div class="flex flex-row-reverse">
+                    <!-- 
+                    class="w-9 h-9 rounded-full cursor-pointer" 
+                     -->
                     <img
                       id="avatarButton"
                       class="w-9 h-9 rounded-full cursor-pointer"
@@ -47,7 +84,8 @@ const email = locals.email;
                       class="bg-white dark:bg-gray-700 rounded-lg shadow-lg w-96 divide-y divide-gray-100 dark:divide-gray-600 relative"
                     >
                       <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                        <div>Bonnie Green</div>
+                        <!-- Nombre del Perfil -->
+                        <div>{display_name}</div>
                         
                         <div class="font-medium truncate">{email}</div>
                       </div>
