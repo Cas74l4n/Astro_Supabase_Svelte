@@ -48,5 +48,7 @@ Este proyecto utiliza Supabase como backend para autenticar usuarios y almacenar
 - **Backend:** Supabase
 - **Deploy:** Vercel
 
-
+## Configurarcion de Supabase
+La configuracion esta en este link 
+[Configuracion de  Supabase](https://github.com/Cas74l4n/Astro_Supabase_Svelte/tree/Local/README.md)
 
