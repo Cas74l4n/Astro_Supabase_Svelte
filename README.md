@@ -10,8 +10,8 @@ La rama `main` es la rama principal del proyecto, destinada para el despliegue e
 - **Propósito**: Desplegar la versión final en producción (ejemplo: Vercel).
 - **Despliegue**: Cada vez que se realice un commit en `main`, se activará el proceso de despliegue en la plataforma de producción configurada (por ejemplo, Vercel).
 
-### 2. `DevVercel`
-La rama `DevVercel` es utilizada para el desarrollo y pruebas locales. Permite realizar cambios sin afectar la versión en producción.
+### 2. `Local`
+La rama `Local` es utilizada para el desarrollo y pruebas locales. Permite realizar cambios sin afectar la versión en producción.
 
 - **Propósito**: Desarrollo local y pruebas.
 - **Despliegue**: No se despliega automáticamente. Esta rama se usa para preparar cambios que luego serán fusionados en `main`.
@@ -22,9 +22,9 @@ La rama `DevVercel` es utilizada para el desarrollo y pruebas locales. Permite r
 
 Para desplegar en producción, simplemente sigue estos pasos:
 
-1. Realiza los cambios necesarios en la rama `DevVercel`.
+1. Realiza los cambios necesarios en la rama `Local`.
 2. Asegúrate de que todo funciona correctamente realizando pruebas locales.
-3. Una vez que los cambios estén listos, realiza un **merge** de la rama `DevVercel` en la rama `main`.
+3. Una vez que los cambios estén listos, realiza un **merge** de la rama `Local` en la rama `main`.
 4. El despliegue en Vercel se activará automáticamente cuando los cambios lleguen a `main`.
 
 ### Pasos para Despliegue
