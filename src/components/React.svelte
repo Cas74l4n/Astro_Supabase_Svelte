@@ -1,20 +1,22 @@
 <!-- Funcionalidades de JS-->
 <script>
-/* Importanciones */
+  /* Importanciones */
   import { fixMyEnglish } from "../service/AI.js";
   import Loading from "../components/icons/Loading.svelte";
   import Upload from "../components/icons/Updoad.svelte";
-/* Variables Reactivas */
+  /* Variables Reactivas */
   let promise = null;
   let inputText = "";
   let correctedText = "";
   let isCorrect = null;
-  
-/* Fncion HandleClick */
-/* Esta funcinalida se ejecuta cuando el usuario hace clic en el boton FixmyEnglish */
+
+  /* Fncion HandleClick */
+  /* Esta funcinalida se ejecuta cuando el usuario hace clic en el boton FixmyEnglish */
   const handleClick = async () => {
     inputText = document.getElementById("result").value.trim();
+    
     if (inputText === "") return;
+
     promise = fixMyEnglish(inputText);
     const value = await promise;
 
@@ -27,7 +29,6 @@
     }
     promise = null;
   };
-
 </script>
 
 <!-- Esctructura de HMTL y Logica de Renderizado -->
@@ -43,27 +44,27 @@
   />
 
   <!-- Boton FixmyEnglish -->
-  <span class=" my-2.5 ">
+  <span class=" my-2.5">
     {#if promise === null}
-    <button
-      on:click={handleClick}
-      type="button"
-      class="py-2 my-2.5 px-4 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
-      >
-      <Upload />
-      Fix My English!
-    </button>
-  {:else}
-    {#await promise}
       <button
+        on:click={handleClick}
         type="button"
-        class="pointer-events-none py-2 px-4 my-2.5 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+        class="py-2 my-2.5 px-4 flex justify-center items-center bg-red-600 hover:bg-red-700 focus:ring-red-500 focus:ring-offset-red-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
       >
-        <Loading />
-        Loading...
+        <Upload />
+        Fix My English!
       </button>
-    {/await}
-  {/if}
+    {:else}
+      {#await promise}
+        <button
+          type="button"
+          class="pointer-events-none py-2 px-4 my-2.5 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg"
+        >
+          <Loading />
+          Loading...
+        </button>
+      {/await}
+    {/if}
   </span>
 
   <!-- Respuesta de la IA -->

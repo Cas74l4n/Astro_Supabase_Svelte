@@ -13,5 +13,6 @@ interface ImportMetaEnv {
   declare namespace App {
     interface Locals {
       email: string;
+      display_name: string;
     }
   }

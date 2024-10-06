@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../../lib/supabase";
+import type { Provider } from "@supabase/supabase-js";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
@@ -8,13 +9,15 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 
   /* Proveedor  de Google  o GitHub*/
 
-  /* if (provider) {
+  const provider = formData.get("provider")?.toString();
+
+  if (provider) {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider as Provider,
       options: {
         redirectTo: import.meta.env.DEV
           ? "http://localhost:4321/api/auth/callback"
-          : "https://astro-supabase-auth.vercel.app/api/auth/callback",
+          : "https://astro-supabase-svelte.vercel.app/api/auth/callback",
       },
     });
 
@@ -24,7 +27,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 
     return redirect(data.url);
   }
-    */
+    
 
   if (!email || !password) {
     return new Response("Correo electrónico y contraseña obligatorios", { status: 400 });
@@ -35,9 +38,13 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     password,
   });
 
-  if (error) {
+  /* if (error) {
     return new Response(error.message, { status: 500 });
-  }
+  } */
+    if (error) {
+      console.error("Error Correo electrónico o contraseña");
+      return redirect("/signin")
+    }
 
   const { access_token, refresh_token } = data.session;
   cookies.set("sb-access-token", access_token, {

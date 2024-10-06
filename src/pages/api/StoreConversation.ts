@@ -1,5 +1,7 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/supabase.ts";
+//import { authenticateUser, getConversations } from "../../utils/supabaseHelpers.ts";
+
 
 export const GET: APIRoute = async ({ cookies }) => {
   const access_token = cookies.get("sb-access-token")?.value;
@@ -31,6 +33,7 @@ export const GET: APIRoute = async ({ cookies }) => {
   return new Response(JSON.stringify(conversations), { headers: { "Content-Type": "application/json" } });
 };
 
+/********************     Metodo POST    ************************/
 export const POST: APIRoute = async ({ request, cookies }) => {
   const access_token = cookies.get("sb-access-token")?.value;
 

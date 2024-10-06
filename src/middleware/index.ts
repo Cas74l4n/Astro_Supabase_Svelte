@@ -6,7 +6,7 @@ import type { AstroCookies } from "astro";
 // Definir rutas protegidas y de redirección
 const protectedRoutes = ["/corrector(|/)", "/profile(|/)", "/chatboot(|/)"]; // Le pongo el cooreo a las diferentes secciones
 const redirectRoutes = ["/signin(|/)", "/register(|/)"];
-const protectedAPIRoutes = ["/api/StoreConversation(|/)"];
+const protectedAPIRoutes = ["/api/StoreConversation(|/)", "/api/Infoprofile(|/)"];
 
 // Función para verificar la sesión del usuario
 async function verifySession(cookies: AstroCookies) {
@@ -66,7 +66,7 @@ export const onRequest = defineMiddleware(
   if (micromatch.isMatch(pathname, redirectRoutes)) {
     const { data } = await verifySession(cookies);
     if (data) {
-      return redirect("/corrector");
+      return redirect("/corrector"); // Cuando inicio Seccion me manda a la Ruta /corrector
     }
   }
 

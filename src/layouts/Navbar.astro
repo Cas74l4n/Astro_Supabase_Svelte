@@ -1,0 +1,180 @@
+---
+interface Props {
+  title: string;
+}
+
+// Acceder a la propiedad desde los props
+const { title } = Astro.props;
+
+// Acceder al email que fue almacenado en locals por el middleware
+const { locals } = Astro;
+const email = locals.email;
+
+import { supabase } from '../lib/supabase'; 
+
+const access_token = Astro.cookies.get("sb-access-token")?.value;
+
+if (!access_token) {
+  throw new Error("No autenticado");
+}
+
+const { data: authData, error: authError } = await supabase.auth.getUser(access_token);
+
+if (authError) {
+  const errorMessage = authError?.message || "Error desconocido de autenticación";
+  
+  if (errorMessage.includes('Token expired')) {
+    console.error('Token expirado. Redirigiendo al inicio de sesión.');
+    window.location.href = '/login';
+  } else {
+    console.error(`Error en supabase.auth.getUser: ${errorMessage}`);
+    throw new Error(`Error de autenticación: ${errorMessage}`);
+  }
+}
+
+if (!authData?.user) {
+  console.error("No se encontró el usuario autenticado.");
+  throw new Error("Error de autenticación: No se encontró el usuario.");
+}
+
+const { data: profileData } = await supabase
+  .from('profiles')
+  .select('display_name')
+  .eq('id', authData.user.id)
+  .single();
+
+const display_name = profileData.display_name;
+---
+
+<!-- ya con el inicio de seccion -->
+<html lang="en" class="h-full w-full">
+    <head>
+        <title>{title}</title>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    </head>
+    <body class="flex flex-col h-full w-full dark:bg-zinc-900 bg-zinc-50 dark:text-zinc-100 overflow-hidden">
+        <nav class="border-b dark:bg-zinc-800 dark:border-zinc-700 z-10">
+          <div class="flex items-center justify-end sm:justify-between p-4 max-w-screen-xl mx-auto">
+            <a href="/" class="flex flex-auto sm:block font-semibold dark:text-white">Inicio</a>
+            <div>
+              <ul class="font-medium flex gap-8">
+                <li>
+                  <div class="flex flex-row-reverse">
+                    <!-- 
+                    class="w-9 h-9 rounded-full cursor-pointer" 
+                     -->
+                    <img
+                      id="avatarButton"
+                      class="w-9 h-9 rounded-full cursor-pointer"
+                      src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                      alt="User dropdown"
+                    />
+                  </div>
+      
+                  <!-- Modal -->
+                  <div
+                    id="userDropdown"
+                    class="fixed inset-0 invisible bg-black bg-opacity-50 flex items-normal justify-end z-50"
+                  > <!-- justify-content: start;
+                  align-items: normal -->
+                    <div
+                      class="bg-white dark:bg-gray-700 rounded-lg shadow-lg w-96 divide-y divide-gray-100 dark:divide-gray-600 relative"
+                    >
+                      <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                        <!-- Nombre del Perfil -->
+                        <div>{display_name}</div>
+                        
+                        <div class="font-medium truncate">{email}</div>
+                      </div>
+                      <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+
+                        <li>
+                          <a
+                            href="/corrector"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          > <i class="fa fa-book mr-2"></i> Corrector</a>
+                        </li>
+
+                        <li>
+                          <a
+                            href="/chatboot"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          ><i class="fa fa-comments mr-2"></i>Chat Boot</a>
+                        </li>
+
+                        <li>
+                          <a
+                            href="/profile"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          ><i class="fas fa-user mr-2"></i>Profile</a>
+                        </li>
+
+                      </ul>
+                      <div class="py-1">
+                        <a
+                          href="/api/auth/signout"
+                          class="block px-2 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                        ><i class="fas fa-sign-out-alt mr-2"></i>Sign Out</a>
+                      </div>
+                      <button id="closeModal" class="absolute top-2 right-2 text-gray-600 dark:text-gray-400">
+                        ✖
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      
+        <slot/>
+    </body>
+    
+</html>
+
+<script>
+    const avatarButton = document.getElementById("avatarButton");
+    const userDropdown = document.getElementById("userDropdown");
+    const closeModal = document.getElementById("closeModal");
+
+    avatarButton.addEventListener("click", () => {
+      userDropdown.classList.remove("invisible");
+    });
+
+    closeModal.addEventListener("click", () => {
+      userDropdown.classList.add("invisible");
+    });
+
+    // Cerrar el modal al hacer clic fuera de él
+    window.addEventListener("click", (e) => {
+      if (e.target === userDropdown) {
+        userDropdown.classList.add("invisible");
+      }
+    });
+</script>
+
+<style is:global>
+    html {
+        font-family: system-ui, sans-serif;
+        background: #13151a;
+        background-size: 224px;
+    }
+    code {
+        font-family:
+            Menlo,
+            Monaco,
+            Lucida Console,
+            Liberation Mono,
+            DejaVu Sans Mono,
+            Bitstream Vera Sans Mono,
+            Courier New,
+            monospace;
+    }
+    body {
+        margin: auto;
+    }
+</style>
+

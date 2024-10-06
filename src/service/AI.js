@@ -22,7 +22,7 @@ Correct sample:`,
     temperature: 0.2,
     k: 0,
     p: 1,
-    frequency_penalty: 0,
+    frequency_penalty: 0, 
     presence_penalty: 0,
     stop_sequences: ['--'],
     return_likelihoods: 'NONE'
