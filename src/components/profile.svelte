@@ -10,6 +10,9 @@
   // Función para manejar el envío de datos del perfil
   const submitProfile = async () => {
     try {
+      // Verifica los datos antes de enviarlos
+      console.log({ display_name, bio }); // Aquí logueamos los valores actuales
+
       const res = await fetch("/api/Infoprofile", {
         method: "PUT",
         headers: {
@@ -21,10 +24,15 @@
       if (!res.ok) {
         const errorData = await res.json();
         console.error("Error al actualizar el perfil:", errorData);
+        console.error(
+          `Error al actualizar el perfil: ${res.status}`,
+          await res.text(),
+        );
       } else {
         const responseData = await res.json();
         console.log("Respuesta del servidor:", responseData); // Revisa la respuesta del servidor
         console.log("Perfil actualizado exitosamente");
+        console.log("Perfil actualizado exitosamente:", await res.json());
 
         // Obtener la nueva los datos en el input *automaticamente*
         const resres = await fetch("/api/Infoprofile"); // Asegúrate de que este endpoint esté configurado correctamente
@@ -45,7 +53,7 @@
         bio = "";
       }
     } catch (error) {
-      console.error("Error al enviar la petición:", error);
+      console.error("Error al enviar la peticion:", error);
     }
   };
 
@@ -60,9 +68,13 @@
   }
 </script>
 
-<!-- on:submit|preventDefault={submitProfile} -->
+<!--
+Si falla alguno cmabiar al otro, no se por que falla
+on:submit|preventDefault={submitProfile} 
+on:submit={submitProfile}
+-->
 <form
-  on:submit={submitProfile}
+  on:submit|preventDefault={submitProfile}
   class="w-[1200px] mx-auto bg-gray-800 border-gray-100 rounded-3xl"
 >
   <div class="p-6">
@@ -75,11 +87,11 @@
         <div class="flex flex-col items-center space-y-4">
           <div class="w-48 h-48 rounded-full bg-gray-200 text-gray-800">
             <!-- Avatar -->
-            <!-- <img
-              src="https://kakoqccxypiyimjgkmyp.supabase.co/storage/v1/object/sign/Avatar/2e4d3eac-7480-41b8-9f6f-56f19ff23223/Gabriel_2e4d.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJBdmF0YXIvMmU0ZDNlYWMtNzQ4MC00MWI4LTlmNmYtNTZmMTlmZjIzMjIzL0dhYnJpZWxfMmU0ZC5qcGciLCJpYXQiOjE3MjY2NDg2NDcsImV4cCI6MTcyNzI1MzQ0N30.55R-74E1eBnf7wNWd-BcFY7Hc712ER5PRSz1yPyFGnc&t=2024-09-18T08%3A37%3A26.642Z"
+            <img
+              src="https://kakoqccxypiyimjgkmyp.supabase.co/storage/v1/object/sign/Avatar/2e4d3eac-7480-41b8-9f6f-56f19ff23223/Gabriel_2e4d.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJBdmF0YXIvMmU0ZDNlYWMtNzQ4MC00MWI4LTlmNmYtNTZmMTlmZjIzMjIzL0dhYnJpZWxfMmU0ZC5qcGciLCJpYXQiOjE3Mjc4MDMzNzcsImV4cCI6MTc1OTMzOTM3N30.kJeGRylYkumZO9lOnwlqaUsdxnbEJhtIk2kat8DQ1Pg&t=2024-10-01T17%3A22%3A58.018Z"
               alt="Profile_picture"
               class="rounded-full"
-            /> -->
+            />
           </div>
           <!-- Boton para actualizar el Avatar -->
           <label for="avatar-upload" class="cursor-pointer">
