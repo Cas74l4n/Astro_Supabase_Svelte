@@ -98,9 +98,9 @@ Sigue estos pasos para ejecutar el proyecto localmente:
    ![Ejemplo de un Trigger en supabase](/assets/Paso6_Supabase.webp "Ejemplo de un Trigger en supabase")
    
    Codigo para Crearlo.
-   ```.sql
-   -- Cracion de la Funcion
+   ```sql
 
+   -- Cracion de la Funcion
    CREATE OR REPLACE FUNCTION create_public_profiles_after_user_insert() 
    RETURNS TRIGGER AS $$
    BEGIN
@@ -113,7 +113,6 @@ Sigue estos pasos para ejecutar el proyecto localmente:
     $$ LANGUAGE plpgsql;
 
    -- Crear el Trigger
-
    CREATE TRIGGER after_user_insert
    AFTER INSERT ON auth.users FOR EACH ROW
    EXECUTE FUNCTION public.create_public_profiles_after_user_insert();

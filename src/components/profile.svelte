@@ -31,7 +31,6 @@
       } else {
         const responseData = await res.json();
         console.log("Respuesta del servidor:", responseData); // Revisa la respuesta del servidor
-        console.log("Perfil actualizado exitosamente");
         console.log("Perfil actualizado exitosamente:", await res.json());
 
         // Obtener la nueva los datos en el input *automaticamente*
@@ -69,10 +68,11 @@
 </script>
 
 <!--
-Si falla alguno cmabiar al otro, no se por que falla
+Si falla alguno cambiar al otro, no se por que falla
 on:submit|preventDefault={submitProfile} 
 on:submit={submitProfile}
 -->
+
 <form
   on:submit|preventDefault={submitProfile}
   class="w-[1200px] mx-auto bg-gray-800 border-gray-100 rounded-3xl"
