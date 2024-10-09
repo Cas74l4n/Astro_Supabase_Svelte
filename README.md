@@ -91,8 +91,9 @@ Sigue estos pasos para ejecutar el proyecto localmente:
    ![Redireccion de confirmacion del correo](/assets/Paso5_supabase.webp "Redireccion de confirmacion del correo.")
    
    4.8  Ejemplo de como se crea una Trigger y una funcion.
-   > [!NOTE]
-   > La creación del Trigger y la función debe realizarse desde el código, ya que la interfaz gráfica de Supabase no permite realizar este tipo de acciones debido a las restricciones de bloqueo del Trigger.
+   
+> [!IMPORTANT]
+> La creación del Trigger y la función debe realizarse desde el código, ya que la interfaz gráfica de Supabase no permite realizar este tipo de acciones debido a las restricciones de bloqueo del Trigger.
    
    ![Ejemplo de un Trigger en supabase](/assets/Paso6_Supabase.webp "Ejemplo de un Trigger en supabase")
    
