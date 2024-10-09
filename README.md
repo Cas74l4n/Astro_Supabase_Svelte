@@ -72,7 +72,7 @@ Sigue estos pasos para ejecutar el proyecto localmente:
 
    4.3  Tablas de Supabase: Este enlace ofrece una vista de cómo se crean y gestionan las tablas en la base de datos de Supabase. Las tablas son la base donde se almacenan los datos que manejará tu aplicación.
 
-   ![Tablas de Supabase](/assets/paso1_Actualizado_supabase.webp "Tablas de Supabase.")
+   ![Tablas de Supabase](/assets/paso1_supabase.webp "Tablas de Supabase.")
    
    4.4 Políticas de Supabase: En este paso se describe la importancia de las políticas de acceso en Supabase (Row Level Security), que permiten definir quién puede leer, escribir o modificar los datos en tu base de datos.
 
@@ -92,14 +92,29 @@ Sigue estos pasos para ejecutar el proyecto localmente:
    
    4.8  Ejemplo de como se crea una Trigger y una funcion.
    > [!NOTE]
-   > Para la creacion del Trigger y la fucnion debe de hacerce desde el codigo, por que tiene bloqueo el Trigger o sea no se puede hacer desde la UI de Supabase.
+   > La creación del Trigger y la función debe realizarse desde el código, ya que la interfaz gráfica de Supabase no permite realizar este tipo de acciones debido a las restricciones de bloqueo del Trigger.
    
-   ![R](/assets/Paso6_Supabase.webp "R")
+   ![Ejemplo de un Trigger en supabase](/assets/Paso6_Supabase.webp "Ejemplo de un Trigger en supabase")
    
    Codigo para Crearlo.
    ```.sql
+   -- Cracion de la Funcion
+
+   CREATE OR REPLACE FUNCTION create_public_profiles_after_user_insert() 
+   RETURNS TRIGGER AS $$
+   BEGIN
+        -- Insertar el perfil en public.profiles
+        INSERT INTO public.profiles (id, display_name, bio)
+        VALUES (new.id, split_part(new.email, '@', 1), '');
+
+        RETURN new;
+    END;
+    $$ LANGUAGE plpgsql;
+
+   -- Crear el Trigger
+
    CREATE TRIGGER after_user_insert
-AFTER INSERT ON auth.users FOR EACH ROW
-EXECUTE FUNCTION public.create_public_profiles_after_user_insert();
+   AFTER INSERT ON auth.users FOR EACH ROW
+   EXECUTE FUNCTION public.create_public_profiles_after_user_insert();
 
    ```
