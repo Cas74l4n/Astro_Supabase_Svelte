@@ -2,21 +2,11 @@
 
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/supabase.ts";
+import {getUserIdFromCookies} from "../../lib/helper/authHelpers.ts"
 
 export const GET: APIRoute = async ({ cookies }) => {
-  const access_token = cookies.get("sb-access-token")?.value;
 
-  if (!access_token) {
-    return new Response("No autenticado", { status: 401 });
-  }
-
-  const { data: authData, error: authError } = await supabase.auth.getUser(access_token);
-
-  if (authError || !authData?.user) {
-    return new Response("Error de autenticación", { status: 401 });
-  };
-
-  const userId = authData.user.id; // Ahora accedemos al ID del usuario autenticado
+  const userId = await getUserIdFromCookies(cookies);  // Ahora accedemos al ID del usuario autenticado
 
   // Cambié el nombre de "data" a "conversations"
   const { data: dataProfile, error } = await supabase
@@ -35,20 +25,7 @@ export const GET: APIRoute = async ({ cookies }) => {
 /************************* PUT ***************************/
 
 export const PUT: APIRoute = async ({ request, cookies }) => {
-  const access_token = cookies.get("sb-access-token")?.value;
-
-  if (!access_token) {
-    return new Response("No autenticado", { status: 401 });
-  }
-
-  // Obtener el usuario autenticado
-  const { data: authData, error: authError } = await supabase.auth.getUser(access_token);
-
-  if (authError || !authData?.user) {
-    const errorMessage = authError?.message || "Error desconocido de autenticación";
-    console.error(`Error en supabase.auth.getUser: ${errorMessage}`);
-    return new Response(`Error de autenticación: ${errorMessage}`, { status: 401 });
-  }
+  const userId = await getUserIdFromCookies(cookies);  // Ahora accedemos al ID del usuario autenticado
 
   // Obtener datos del cuerpo de la solicitud
   const { display_name, bio } = await request.json();
@@ -57,7 +34,6 @@ export const PUT: APIRoute = async ({ request, cookies }) => {
     return new Response("Faltan campos obligatorios", { status: 400 });
   }
 
-  const userId = authData.user.id; // Ahora accedemos al ID del usuario autenticado
 
   // Actualizar los datos en la tabla 'profiles'
   const { data, error } = await supabase
@@ -76,3 +52,6 @@ return new Response(
   JSON.stringify({ success: true, message: "Perfil actualizado correctamente", data }),
   { status: 200, headers: { "Content-Type": "application/json" } });
 };
+
+/* GET para Store */
+

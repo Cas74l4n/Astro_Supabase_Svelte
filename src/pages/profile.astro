@@ -2,37 +2,12 @@
 import Navbar from "../layouts/Navbar.astro";
 import Profil from "../components/profile.svelte";
 import { supabase } from "../lib/supabase";
+import {getUserIdFromCookies} from "../lib/helper/authHelpers.ts"
 
-// Obtener el token de autenticación desde las cookies
-const access_token = Astro.cookies.get("sb-access-token")?.value;
+const { cookies} = Astro;
 
-if (!access_token) {
-  throw new Error("No autenticado");
-}
+const userId = await getUserIdFromCookies(cookies);  // Ahora accedemos al ID del usuario autenticado
 
-// Autenticación del usuario
-const { data: authData, error: authError } = await supabase.auth.getUser(access_token);
-
-if (authError) {
-  const errorMessage = authError?.message || "Error desconocido de autenticación";
-  
-  // Verificar si el mensaje del error es debido a un token expirado
-  if (errorMessage.includes('Token expired')) {
-    console.error('Token expirado. Redirigiendo al inicio de sesión.');
-    // Aquí puedes implementar la lógica para redirigir al login o refrescar el token
-    // Por ejemplo, redirigir al login:
-    window.location.href = '/login';
-  } else {
-    console.error(`Error en supabase.auth.getUser: ${errorMessage}`);
-    throw new Error(`Error de autenticación: ${errorMessage}`);
-  }
-}
-const userId = authData.user.id; // Ahora accedemos al ID del usuario autenticado
-
-if (!authData?.user) {
-  console.error("No se encontró el usuario autenticado.");
-  throw new Error("Error de autenticación: No se encontró el usuario.");
-}
 
 // Obtener las conversaciones desde la base de datos de Supabase
 const { data: dProfiles, error } = await supabase

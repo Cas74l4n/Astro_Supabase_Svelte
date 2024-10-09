@@ -1,23 +1,10 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../lib/supabase.ts";
-//import { authenticateUser, getConversations } from "../../utils/supabaseHelpers.ts";
-
+import {getUserIdFromCookies} from "../../lib/helper/authHelpers.ts"
 
 export const GET: APIRoute = async ({ cookies }) => {
-  const access_token = cookies.get("sb-access-token")?.value;
 
-  if (!access_token) {
-    return new Response("No autenticado", { status: 401 });
-  }
-
-  // Cambié el nombre de "data" a "authData" para evitar conflicto
-  const { data: authData, error: authError } = await supabase.auth.getUser(access_token);
-
-  if (authError || !authData?.user) {
-    return new Response("Error de autenticación", { status: 401 });
-  };
-
-  const userId = authData.user.id; // Ahora accedemos al ID del usuario autenticado
+  const userId = await getUserIdFromCookies(cookies);  // Ahora accedemos al ID del usuario autenticado
 
   // Cambié el nombre de "data" a "conversations"
   const { data: conversations, error } = await supabase
@@ -35,22 +22,8 @@ export const GET: APIRoute = async ({ cookies }) => {
 
 /********************     Metodo POST    ************************/
 export const POST: APIRoute = async ({ request, cookies }) => {
-  const access_token = cookies.get("sb-access-token")?.value;
+  const userId = await getUserIdFromCookies(cookies);  // Ahora accedemos al ID del usuario autenticado
 
-  if (!access_token) {
-    return new Response("No autenticado", { status: 401 });
-  }
-
-  // Obtener el usuario autenticado
-  const { data: authData, error: authError } = await supabase.auth.getUser(access_token);
-
-  if (authError || !authData?.user) {
-    const errorMessage = authError?.message || "Error desconocido de autenticación";
-    console.error(`Error en supabase.auth.getUser: ${errorMessage}`);
-    return new Response(`Error de autenticación: ${errorMessage}`, { status: 401 });
-  }
-
-  const userId = authData.user.id;
 
   // Obtener datos del cuerpo de la solicitud
   const { message, response } = await request.json();
