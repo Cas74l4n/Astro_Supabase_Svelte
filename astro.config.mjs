@@ -7,6 +7,8 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: "https://astro-supabase-svelte.vercel.app",
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    isr: true,
+  }),
   integrations: [svelte(), tailwind()],
 });

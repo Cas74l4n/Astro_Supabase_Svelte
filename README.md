@@ -31,15 +31,34 @@ Para desplegar en producción, simplemente sigue estos pasos:
 
 1. **Instalar dependencias**:
    ```bash
-   npm install
+   npm install 
    ```
+   1.1 **Instalacion de vercel en el proyecto**
+   ```bash
+   npx astro add vercel
+   ```
+    >[!NOTE]
+    > En la instalacion del proyecto asegurarse en el archivo ``` astro.config.mjs``` tenga esto en el archivo. 
+ 
+    ```astro.config.mjs
+    import { defineConfig } from 'astro/config';
+    import vercel from '@astrojs/vercel/serverless';
+ 
+    export default defineConfig({
+        // ...
+        output: 'server',
+        adapter: vercel(),
+    });
+    ```
+
+
 2. **Crear el archivo de variables de entorno: Crea un archivo .env en la raíz del proyecto y agrega las siguientes variables**:
     ```.env
     SUPABASE_URL=
     SUPABASE_ANON_KEY=
     ```
 3. **Despliegue en Vercel**: 
-    El despliegue se realiza automáticamente desde la rama `main` a través de Vercel, utilizando el adaptador `@astrojs/vercel`.
+    El despliegue se realiza automáticamente desde la rama `main` a través de Vercel, utilizando el adaptador `@astrojs/vercel/serverless`.
 
 ## Resumen del Proyecto
 Este proyecto utiliza Supabase como backend para autenticar usuarios y almacenar datos en tiempo real. La UI está desarrollada con Svelte y TailwindCSS para un diseño moderno y rápido.
