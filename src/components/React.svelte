@@ -36,6 +36,15 @@
     promise = null;
   }
 
+/*   function highlightDifferences(original, corrected) {
+    const originalWords = original.split(" ");
+    const correctedWords = corrected.split(" ");
+    highlightedText = correctedWords.map((word, index) => {
+      return originalWords[index] !== word
+        ? `<span style="text-decoration: underline; color: red;">${word}</span>`
+        : word;
+    });
+  } */
 </script>
 
 <!-- Esctructura de HMTL y Logica de Renderizado -->
@@ -90,5 +99,17 @@
       <p>Corrected: {correctedText}</p>
     {/if}
   </div>
+
+<!--   <div>
+    {#if isCorrect !== null}
+      <p style="color: {isCorrect ? 'green' : 'red'}">
+        {isCorrect
+          ? "The input text is correct."
+          : "The input text is incorrect."}
+      </p>
+      <p>Original: <span style="color: {isCorrect ? 'green' : 'red'}">{inputText}</span></p>
+      <p>Corrected: {@html highlightedText.join(" ")}</p>
+    {/if}
+  </div> -->
 
 </div>
