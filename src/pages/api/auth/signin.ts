@@ -17,7 +17,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
       options: {
         redirectTo: import.meta.env.DEV
           ? "http://localhost:4321/api/auth/callback"
-          : "https://astro-supabase-svelte.vercel.app/api/auth/callback",
+          : "https://astro-supabase-svelte.vercel.app/api/auth/v1/callback",
       },
     });
     if (error) {
