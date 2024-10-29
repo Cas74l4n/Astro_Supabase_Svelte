@@ -1,3 +1,4 @@
+/* 
 // src/middleware/auth.ts
 import { supabase } from '../lib/supabase'; // Asegúrate de tener configurado Supabase aquí.
 
@@ -32,3 +33,4 @@ export async function onRequest({ locals, request, cookies }) {
   // Almacenar el display_name en locals
   locals.display_name = profileData.display_name;
 }
+*/

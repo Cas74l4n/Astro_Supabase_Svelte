@@ -10,7 +10,7 @@ export const GET: APIRoute = async ({ cookies }) => {
 
   // Cambié el nombre de "data" a "conversations"
   const { data: dataProfile, error } = await supabase
-    .from("Profiles")
+    .from("profiles")
     .select("*")
     .eq("id", userId) // Filtrar por userId
 
@@ -39,7 +39,7 @@ export const PUT: APIRoute = async ({ request, cookies }) => {
   const { data, error } = await supabase
     .from("profiles")
     .update({ display_name, bio }) // Usamos update en lugar de insert
-    .eq('id', userId)  // Asegurarse de que se actualice solo el registro del usuario autenticado
+    .eq("id", userId)  // Asegurarse de que se actualice solo el registro del usuario autenticado
 // Para asegurarse de obtener los datos actualizados
 
 

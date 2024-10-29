@@ -13,7 +13,7 @@
       // Verifica los datos antes de enviarlos
       console.log({ display_name, bio }); // Aquí logueamos los valores actuales
 
-      const res = await fetch("/api/Infoprofile", {
+      const res = await fetch("/api/infoprofile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@
         console.log("Perfil actualizado exitosamente:", await res.json());
 
         // Obtener la nueva los datos en el input *automaticamente*
-        const resres = await fetch("/api/Infoprofile"); // Asegúrate de que este endpoint esté configurado correctamente
+        const resres = await fetch("/api/infoprofile"); // Asegúrate de que este endpoint esté configurado correctamente
         const data = await resres.json();
 
         if (resres.ok) {
@@ -88,7 +88,7 @@ on:submit={submitProfile}
           <div class="w-48 h-48 rounded-full bg-gray-200 text-gray-800">
             <!-- Avatar -->
             <img
-              src="https://kakoqccxypiyimjgkmyp.supabase.co/storage/v1/object/sign/Avatar/2e4d3eac-7480-41b8-9f6f-56f19ff23223/Gabriel_2e4d.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJBdmF0YXIvMmU0ZDNlYWMtNzQ4MC00MWI4LTlmNmYtNTZmMTlmZjIzMjIzL0dhYnJpZWxfMmU0ZC5qcGciLCJpYXQiOjE3Mjc4MDMzNzcsImV4cCI6MTc1OTMzOTM3N30.kJeGRylYkumZO9lOnwlqaUsdxnbEJhtIk2kat8DQ1Pg&t=2024-10-01T17%3A22%3A58.018Z"
+              src="https://kakoqccxypiyimjgkmyp.supabase.co/storage/v1/object/public/Avatar/Using.png"
               alt="Profile_picture"
               class="rounded-full"
             />

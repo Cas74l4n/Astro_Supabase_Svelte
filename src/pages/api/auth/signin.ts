@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { supabase } from "../../../lib/supabase";
-/*import type { Provider } from "@supabase/supabase-js";*/
+import type { Provider } from "@supabase/supabase-js";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
 
   /* Proveedor  de Google  o GitHub*/
 
-  /* const provider = formData.get("provider")?.toString();
+  const provider = formData.get("provider")?.toString();
 
   if (provider) {
     const { data, error } = await supabase.auth.signInWithOAuth({
@@ -20,14 +20,13 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
           : "https://astro-supabase-svelte.vercel.app/api/auth/callback",
       },
     });
-
     if (error) {
       return new Response(error.message, { status: 500 });
     }
-
     return redirect(data.url);
   }
-    */
+  
+  
 
   if (!email || !password) {
     return new Response("Correo electrónico y contraseña obligatorios", { status: 400 });
