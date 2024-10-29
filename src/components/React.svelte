@@ -1,5 +1,5 @@
 <!-- Funcionalidades de JS-->
-<script>
+<script lang="">
   /* Importanciones */
   import { fixMyEnglish } from "../service/AI.js";
   import Loading from "../components/icons/Loading.svelte";
@@ -9,6 +9,8 @@
   let inputText = "";
   let correctedText = "";
   let isCorrect = null;
+  /* let highlightedText = []; */
+
 
   /* Fncion HandleClick */
   /* Esta funcinalida se ejecuta cuando el usuario hace clic en el boton FixmyEnglish */
@@ -22,13 +24,18 @@
 
     correctedText = value;
 
-    if (inputText.trim() === correctedText.trim()) {
+  if (inputText.trim() === correctedText.trim()) {
       isCorrect = true;
     } else {
       isCorrect = false;
     }
+
+    /* isCorrect = inputText.trim() === correctedText.trim();
+    highlightDifferences(inputText, correctedText); */
+
     promise = null;
-  };
+  }
+
 </script>
 
 <!-- Esctructura de HMTL y Logica de Renderizado -->
@@ -70,17 +77,18 @@
   <!-- Respuesta de la IA -->
   <div>
     {#if isCorrect !== null}
-      <p style="color: {isCorrect ? 'green' : 'red'}">
+      <p style="color: {isCorrect ? '#05cd05' : '#f00'}">
         {isCorrect
           ? "The input text is correct."
           : "The input text is incorrect."}
       </p>
       <p>
-        Original: <span style="color: {isCorrect ? 'green' : 'red'}"
+        Original: <span style="color: {isCorrect ? '#05cd05' : '#f00'}"
           >{inputText}</span
         >
       </p>
       <p>Corrected: {correctedText}</p>
     {/if}
   </div>
+
 </div>

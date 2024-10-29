@@ -6,7 +6,7 @@ import type { AstroCookies } from "astro";
 // Definir rutas protegidas y de redirección
 const protectedRoutes = ["/corrector(|/)", "/profile(|/)", "/chatboot(|/)"]; // Le pongo el cooreo a las diferentes secciones
 const redirectRoutes = ["/signin(|/)", "/register(|/)"];
-const protectedAPIRoutes = ["/api/StoreConversation(|/)", "/api/Infoprofile(|/)"];
+const protectedAPIRoutes = ["/api/StoreConversation(|/)", "/api/infoprofile(|/)"];
 
 // Función para verificar la sesión del usuario
 async function verifySession(cookies: AstroCookies) {

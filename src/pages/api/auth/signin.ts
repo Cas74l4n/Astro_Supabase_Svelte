@@ -20,14 +20,13 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
           : "https://astro-supabase-svelte.vercel.app/api/auth/callback",
       },
     });
-
     if (error) {
       return new Response(error.message, { status: 500 });
     }
-
     return redirect(data.url);
   }
-    
+  
+  
 
   if (!email || !password) {
     return new Response("Correo electrónico y contraseña obligatorios", { status: 400 });

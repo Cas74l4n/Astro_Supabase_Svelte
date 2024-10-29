@@ -4,7 +4,8 @@ const COHERE_API_GENERATE_URL = 'https://api.cohere.ai/v1/generate';
 export async function fixMyEnglish(input) {
   const dato = {
     /* model: 'c4ai-aya', */
-    model:'command',
+    /* model:'command', */
+    model: "command-r-plus-08-2024",
     prompt: `This is a spell checker generator.
 --
 Incorrect sample: "I are good!"
@@ -44,3 +45,4 @@ Correct sample:`,
     .replaceAll('"', '')
     .trim()
 };
+
