@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const provider = formData.get("provider")?.toString();
 
   // Autenticación con Proveedor OAuth (Google o GitHub)
-  const validProviders = ['github' , 'google'];
+  const validProviders = ["google", "github"];
 
   if (provider && validProviders.includes(provider)) {
     const { data, error } = await supabase.auth.signInWithOAuth({
