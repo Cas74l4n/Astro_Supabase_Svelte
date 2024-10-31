@@ -63,12 +63,12 @@ export const onRequest = defineMiddleware(
   }
 
   // Manejar redirección si el usuario ya está autenticado
-  if (micromatch.isMatch(pathname, redirectRoutes)) {
+ /*  if (micromatch.isMatch(pathname, redirectRoutes)) {
     const { data } = await verifySession(cookies);
     if (data) {
       return redirect("/corrector"); // Cuando inicio Seccion me manda a la Ruta /corrector
     }
-  }
+  } */
 
   // Proteger rutas de la API
   if (micromatch.isMatch(pathname, protectedAPIRoutes)) {
