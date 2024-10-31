@@ -6,7 +6,7 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
 
   // Verifica si el código de autenticación está presente en la URL
   if (!authCode) {
-    return new Response("No se proporcionó ningún código", { status: 400 });
+    return new Response("No se proporcionó el codigo del provedor", { status: 400 });
   }
 
   // Intercambia el código por una sesión
@@ -35,5 +35,5 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
   });
 
   // Redirige al usuario a la página deseada
-  return redirect("/corrector");
+  return redirect('/corrector');
 };
