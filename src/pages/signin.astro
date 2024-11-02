@@ -4,11 +4,11 @@ import Layout from "../layouts/Home.astro";
 const { cookies, redirect } = Astro;
 
 const accessToken = cookies.get("sb-access-token");
-console.log(accessToken)
+/* console.log(accessToken) */
 const refreshToken = cookies.get("sb-refresh-token");
 
-if (accessToken != undefined && refreshToken != undefined) {
-
+/* if (accessToken != undefined && refreshToken != undefined) { */
+if (accessToken && refreshToken) {
   return redirect("/corrector"); // redirect to corrector if refresh token 
 }
 ---
@@ -17,7 +17,7 @@ if (accessToken != undefined && refreshToken != undefined) {
   <div class="container m-auto ">
     <div class="login-box bg-zinc-800 text-gray-200">
       <h1 class="text-gray-200">Iniciar sesión</h1>
-      <p class="text-gray-200">¿Nuevo aquí? <a href="/register">Crea una cuenta</a></p>
+      <p class="text-gray-200">¿Nuevo aquí? <a href="/error503">Crea una cuenta</a></p>
       <form 
       action="/api/auth/signin" 
       method="post"

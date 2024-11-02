@@ -5,7 +5,6 @@ import { supabase } from "../../lib/supabase.ts";
 import {getUserIdFromCookies} from "../../lib/helper/authHelpers.ts"
 
 export const GET: APIRoute = async ({ cookies }) => {
-
   const userId = await getUserIdFromCookies(cookies);  // Ahora accedemos al ID del usuario autenticado
 
   // Cambié el nombre de "data" a "conversations"

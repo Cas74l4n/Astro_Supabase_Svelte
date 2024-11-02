@@ -11,16 +11,16 @@
   },
   "dependencies": {
     "@astrojs/svelte": "5.7.2",
-    "@astrojs/tailwind": "^5.1.1",
-    "@supabase/supabase-js": "^2.45.4",
-    "astro": "^4.15.12",
+    "@astrojs/tailwind": "5.1.2",
+    "@supabase/supabase-js": "2.46.1",
+    "astro": "4.16.8",
     "astro-supabase-svelte": "file:",
     "micromatch": "4.0.8",
-    "svelte": "4.2.19",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.3"
+    "svelte": "5.1.9",
+    "tailwindcss": "3.4.14",
+    "typescript": "5.6.3"
   },
   "devDependencies": {
-    "@types/micromatch": "^4.0.9"
+    "@types/micromatch": "4.0.9"
   }
 }
