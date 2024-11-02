@@ -15,11 +15,10 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: provider as Provider,
       options: {
-        queryParams:{
-          prompt:'select_account'
-        },
-        redirectTo: "https://astro-supabase-svelte.vercel.app/api/auth/callback",
-      },
+        redirectTo: import.meta.env.DEV
+          ? "http://localhost:4321/api/auth/callback"
+          : "https://astro-supabase-svelte.vercel.app/api/auth/callback",
+      }      
     });
 
     if (error) {
@@ -50,10 +49,16 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   
   // Configuración de cookies para los tokens de sesión
   cookies.set("sb-access-token", access_token, {
+    sameSite: "strict",
     path: "/",
+    secure: true,
+    httpOnly: true,
   });
   cookies.set("sb-refresh-token", refresh_token, {
+    sameSite: "strict",
     path: "/",
+    secure: true,
+    httpOnly: true,
   });
 
   // Redirige al usuario a la página de corrección

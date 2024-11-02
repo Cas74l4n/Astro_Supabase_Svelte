@@ -4,9 +4,9 @@ import micromatch from "micromatch";
 import type { AstroCookies } from "astro";
 
 // Definir rutas protegidas y de redirección
-const protectedRoutes = ["/corrector(|/)", "/profile(|/)", "/chatboot(|/)"]; // Le pongo el cooreo a las diferentes secciones
+const protectedRoutes = ["/corrector(|/)", "/profile(|/)", "/chatboot(|/)", "/meta_data"]; // Le pongo el cooreo a las diferentes secciones
 const redirectRoutes = ["/signin(|/)", "/register(|/)"];
-const protectedAPIRoutes = ["/api/StoreConversation(|/)", "/api/infoprofile(|/)"];
+const protectedAPIRoutes = ["/api/StoreConversation(|/)", "/api/Infoprofile(|/)", "/api/meta_data(|/)"];
 
 // Función para verificar la sesión del usuario
 async function verifySession(cookies: AstroCookies) {
@@ -63,12 +63,12 @@ export const onRequest = defineMiddleware(
   }
 
   // Manejar redirección si el usuario ya está autenticado
- /*  if (micromatch.isMatch(pathname, redirectRoutes)) {
+  if (micromatch.isMatch(pathname, redirectRoutes)) {
     const { data } = await verifySession(cookies);
     if (data) {
       return redirect("/corrector"); // Cuando inicio Seccion me manda a la Ruta /corrector
     }
-  } */
+  }
 
   // Proteger rutas de la API
   if (micromatch.isMatch(pathname, protectedAPIRoutes)) {
