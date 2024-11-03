@@ -25,9 +25,8 @@ const { data: profileData } = await supabase
 
 const display_name = profileData.display_name;
 
-/* const response = await fetch('/api/meta_data');
+/* const response = await fetch('/api/Metadata');
 const { avatarUrl } = await response.json(); */
-
 ---
 
 <!-- ya con el inicio de seccion -->
@@ -53,7 +52,7 @@ const { avatarUrl } = await response.json(); */
                     <img
                       id="avatarButton"
                       class="w-[3.8rem] h-9 rounded-full cursor-pointer"
-                      src={'https://kakoqccxypiyimjgkmyp.supabase.co/storage/v1/object/public/Avatar/Using.png'} alt="User Avatar"
+                      src={ 'https://kakoqccxypiyimjgkmyp.supabase.co/storage/v1/object/public/Avatar/Using.png'} alt="User Avatar"
                     />
                   </div>
                   <!-- src={avatarUrl || 'https://kakoqccxypiyimjgkmyp.supabase.co/storage/v1/object/public/Avatar/Using.png'} alt="User Avatar" -->
@@ -62,15 +61,15 @@ const { avatarUrl } = await response.json(); */
                   <div
                     id="userDropdown"
                     class="fixed inset-0 invisible bg-black bg-opacity-50 flex items-normal justify-end z-50"
-                  > <!-- justify-content: start;
-                  align-items: normal -->
+                  >
                     <div
                       class="bg-white dark:bg-gray-700 rounded-lg shadow-lg w-96 divide-y divide-gray-100 dark:divide-gray-600 relative"
                     >
                       <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+
                         <!-- Nombre del Perfil -->
                         <div>{display_name}</div>
-                        
+
                         <div class="font-medium truncate">{email}</div>
                       </div>
                       <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">

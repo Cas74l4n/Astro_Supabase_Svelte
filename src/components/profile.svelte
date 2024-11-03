@@ -34,7 +34,7 @@
         console.log("Perfil actualizado exitosamente:", await res.json());
 
         // Obtener la nueva los datos en el input *automaticamente*
-        const resres = await fetch("/api/infoprofile"); // Asegúrate de que este endpoint esté configurado correctamente
+        const resres = await fetch("/api/Infoprofile"); // Asegúrate de que este endpoint esté configurado correctamente
         const data = await resres.json();
 
         if (resres.ok) {
@@ -88,7 +88,7 @@ on:submit={submitProfile}
           <div class="w-48 h-48 rounded-full bg-gray-200 text-gray-800">
             <!-- Avatar -->
             <img
-              src="https://kakoqccxypiyimjgkmyp.supabase.co/storage/v1/object/public/Avatar/Using.png"
+              src=""
               alt="Profile_picture"
               class="rounded-full"
             />

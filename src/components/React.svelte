@@ -57,7 +57,7 @@
     name="comment"
     rows="5"
     cols="40"
-  />
+  ></textarea>
 
   <!-- Boton FixmyEnglish -->
   <span class=" my-2.5">
