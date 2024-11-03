@@ -4,9 +4,9 @@ import micromatch from "micromatch";
 import type { AstroCookies } from "astro";
 
 // Definir rutas protegidas y de redirección
-const protectedRoutes = ["/corrector(|/)", "/profile(|/)", "/chatboot(|/)", "/meta_data"]; // Le pongo el cooreo a las diferentes secciones
+const protectedRoutes = ["/corrector(|/)", "/profile(|/)", "/chatboot(|/)", "/layouts/Metadata(|/)"]; // Le pongo el cooreo a las diferentes secciones
 const redirectRoutes = ["/signin(|/)", "/register(|/)"];
-const protectedAPIRoutes = ["/api/StoreConversation(|/)", "/api/Infoprofile(|/)", "/api/meta_data(|/)"];
+const protectedAPIRoutes = ["/api/StoreConversation(|/)", "/api/Infoprofile(|/)", "/api/Metadata(|/)"];
 
 // Función para verificar la sesión del usuario
 async function verifySession(cookies: AstroCookies) {
