@@ -10,6 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/netlify": "5.5.4",
     "@astrojs/svelte": "5.7.2",
     "@astrojs/tailwind": "5.1.2",
     "@supabase/supabase-js": "2.46.1",
@@ -25,6 +26,6 @@
     "@types/micromatch": "4.0.9"
   },
   "overrides": {
-  "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6"
-}
+    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6"
+  }
 }
