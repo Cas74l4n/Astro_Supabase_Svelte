@@ -4,10 +4,16 @@ import tailwind from '@astrojs/tailwind';
 import netlify from '@astrojs/netlify/functions';
 
 export default defineConfig({
-  site: "https://gabrielcastelan.com",
+  integrations: [svelte(), tailwind()],
   output: 'server',
-  adapter: netlify({
-    edgeMiddleware: true
-  }),
-  integrations: [svelte(), tailwind()]
+  adapter: netlify(),
+  vite: {
+    resolve: {
+      alias: {
+        // Configuración para manejar módulos de Node en Vite
+        fs: 'memfs',
+        path: 'path-browserify',
+      },
+    },
+  },
 });
