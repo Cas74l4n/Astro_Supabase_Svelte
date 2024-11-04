@@ -8,7 +8,8 @@
   let bio = dataProfile[0]?.bio || "";
 
   // Función para manejar el envío de datos del perfil
-  const submitProfile = async () => {
+  const submitProfile = async (event) => {
+    event.preventDefault();
     try {
       // Verifica los datos antes de enviarlos
       console.log({ display_name, bio }); // Aquí logueamos los valores actuales
@@ -73,9 +74,8 @@ on:submit|preventDefault={submitProfile}
 on:submit={submitProfile}
 -->
 
-<form
-  on:submit|preventDefault={submitProfile}
-  class="w-[1200px] mx-auto bg-gray-800 border-gray-100 rounded-3xl"
+<form on:submit={submitProfile}
+class="w-[1200px] mx-auto bg-gray-800 border-gray-100 rounded-3xl"
 >
   <div class="p-6">
     <h2 class="text-3xl">Profile Settings</h2>
