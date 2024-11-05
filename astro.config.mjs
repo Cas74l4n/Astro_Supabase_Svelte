@@ -6,7 +6,7 @@ import netlify from '@astrojs/netlify/functions';
 export default defineConfig({
   integrations: [svelte(), tailwind()],
   output: 'server',
-  adapter: netlify(),
+  adapter: netlify()/* ,
   vite: {
     resolve: {
       alias: {
@@ -15,5 +15,5 @@ export default defineConfig({
         path: 'path-browserify',
       },
     },
-  },
+  }, */
 });

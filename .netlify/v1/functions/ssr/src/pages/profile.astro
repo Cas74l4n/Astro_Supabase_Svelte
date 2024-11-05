@@ -1,0 +1,28 @@
+---
+import Navbar from "../layouts/Navbar.astro";
+import Profil from "../components/profile.svelte";
+import { supabase } from "../lib/supabase";
+import {getUserIdFromCookies} from "../lib/helper/authHelpers.ts"
+
+const { cookies} = Astro;
+
+const userId = await getUserIdFromCookies(cookies);  // Ahora accedemos al ID del usuario autenticado
+
+
+// Obtener las conversaciones desde la base de datos de Supabase
+const { data: dProfiles, error } = await supabase
+  .from('profiles')
+  .select("id, display_name, bio")
+  .eq('id', userId) // Filtrar por el usuario autenticado
+
+if (error) {
+  throw new Error("Error al obtener las conversaciones");
+} 
+
+---
+
+<Navbar title="Perfil">
+  <section class="p-6 w-full flex flex-col items-center gap-2 overflow-auto	">
+    <Profil dataProfile={dProfiles} client:visible />
+  </section>
+</Navbar>
