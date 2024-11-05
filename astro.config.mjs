@@ -5,10 +5,16 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astro-supabase-svelte.vercel.app",
   output: 'server',
-  adapter: vercel({
-    isr: true,
-  }),
+  adapter: vercel(),
   integrations: [svelte(), tailwind()],
+  vite: {
+    resolve: {
+      alias: {
+        // Configuración para manejar módulos de Node en Vite
+        fs: 'memfs',
+        path: 'path-browserify',
+      },
+    },
+  },
 });

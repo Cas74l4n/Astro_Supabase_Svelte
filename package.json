@@ -14,7 +14,7 @@
     "@astrojs/tailwind": "5.1.2",
     "@astrojs/vercel": "^7.8.2",
     "@supabase/supabase-js": "2.46.1",
-    "astro": "4.16.8",
+    "astro": "4.16.9",
     "astro-supabase-svelte": "file:",
     "micromatch": "4.0.8",
     "svelte": "5.1.9",
