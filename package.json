@@ -10,11 +10,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/netlify": "5.5.4",
     "@astrojs/svelte": "5.7.2",
     "@astrojs/tailwind": "5.1.2",
     "@supabase/supabase-js": "2.46.1",
     "astro": "4.16.8",
+    "astro-aws-amplify": "^0.1.0",
     "astro-supabase-svelte": "file:",
     "micromatch": "4.0.8",
     "svelte": "5.1.9",
