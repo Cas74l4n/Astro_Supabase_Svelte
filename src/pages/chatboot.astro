@@ -1,6 +1,7 @@
 ---
 import Navbar from "../layouts/Navbar.astro";
 import Chat from "../components/Chatboot.svelte";
+
 import { supabase } from "../lib/supabase";
 import {getUserIdFromCookies} from "../lib/helper/authHelpers.ts"
 
@@ -19,7 +20,6 @@ const { data: conversations, error } = await supabase
 if (error) {
   throw new Error("Error al obtener las conversaciones");
 }
-
 ---
 
 <!-- Chat Boot -->

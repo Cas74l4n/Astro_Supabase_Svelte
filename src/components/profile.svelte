@@ -13,7 +13,7 @@
       // Verifica los datos antes de enviarlos
       console.log({ display_name, bio }); // Aquí logueamos los valores actuales
 
-      const res = await fetch("/api/infoprofile", {
+      const res = await fetch("/api/Infoprofile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
