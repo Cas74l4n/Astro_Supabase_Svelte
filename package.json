@@ -1,10 +1,10 @@
 {
   "name": "astro-supabase-svelte",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "NODE_NO_WARNINGS=1 astro dev",
+    "start": "NODE_NO_WARNINGS=1 astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
