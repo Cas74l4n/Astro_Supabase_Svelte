@@ -1,0 +1,67 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/auth\\/callback\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/auth\\/register\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/auth\\/signin\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/auth\\/signout\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/Infoprofile\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/api\\/StoreConversation\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/chatboot\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/corrector\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/error503\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/profile\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/register\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/signin\\/?$",
+			"dest": "_render"
+		}
+	]
+}
