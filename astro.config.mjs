@@ -16,8 +16,5 @@ export default defineConfig({
         path: 'path-browserify',
       },
     },
-    define: {
-      'process.env.NODE_NO_WARNINGS': JSON.stringify('1'),
-    },
   },
 });
