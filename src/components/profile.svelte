@@ -1,19 +1,19 @@
 <script>
   import Camera from "./icons/camera.svelte";
   export let dataProfile = []; // Datos del perfil recibidos como prop
-
   // Inicializamos las variables con los valores del perfil si existen
 
   let display_name = dataProfile[0]?.display_name || "";
   let bio = dataProfile[0]?.bio || "";
 
   // Función para manejar el envío de datos del perfil
-  const submitProfile = async () => {
+  const submitProfile = async (event) => {
+    event.preventDefault(); // Evita el comportamiento predeterminado aquí
     try {
       // Verifica los datos antes de enviarlos
       console.log({ display_name, bio }); // Aquí logueamos los valores actuales
 
-      const res = await fetch("/api/infoprofile", {
+      const res = await fetch("/api/Infoprofile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -43,10 +43,6 @@
           console.error("Error al obtener las conversaciones:", data);
         }
 
-        // Actualizar la lista de perfiles
-        const newProfile = { display_name, bio };
-        dataProfile = [newProfile, ...dataProfile];
-
         // Limpiar los campos si es necesario
         display_name = "";
         bio = "";
@@ -73,10 +69,7 @@ on:submit|preventDefault={submitProfile}
 on:submit={submitProfile}
 -->
 
-<form
-  on:submit|preventDefault={submitProfile}
-  class="w-[1200px] mx-auto bg-gray-800 border-gray-100 rounded-3xl"
->
+<form onsubmit={submitProfile} class="w-[1200px] mx-auto bg-gray-800 border-gray-100 rounded-3xl">
   <div class="p-6">
     <h2 class="text-3xl">Profile Settings</h2>
     <p>Update your profile information here.</p>

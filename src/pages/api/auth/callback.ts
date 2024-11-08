@@ -35,5 +35,5 @@ export const GET: APIRoute = async ({ url, cookies, redirect }) => {
   });
 
   // Redirige al usuario a la página deseada
-  return redirect("/corrector");
+  return redirect("/signin");
 };

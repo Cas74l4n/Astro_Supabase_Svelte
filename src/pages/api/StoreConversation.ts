@@ -2,6 +2,8 @@ import type { APIRoute } from "astro";
 import { supabase } from "../../lib/supabase.ts";
 import {getUserIdFromCookies} from "../../lib/helper/authHelpers.ts"
 
+/********************     Metodo GET    ************************/
+
 export const GET: APIRoute = async ({ cookies }) => {
 
   const userId = await getUserIdFromCookies(cookies);  // Ahora accedemos al ID del usuario autenticado

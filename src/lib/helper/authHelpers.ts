@@ -23,7 +23,7 @@ export const getUserIdFromCookies = async (cookies: any) => {
           console.error('Token expirado. Redirigiendo al inicio de sesión.');
           // Aquí puedes implementar la lógica para redirigir al login o refrescar el token
           // Por ejemplo, redirigir al login:
-          window.location.href = '/login';
+          window.location.href = '/signin';
         } else {
           console.error(`Error en supabase.auth.getUser: ${errorMessage}`);
           throw new Error(`Error de autenticación: ${errorMessage}`);

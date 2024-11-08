@@ -24,11 +24,11 @@ if (accessToken && refreshToken) {
       >
         <div class="form-group">
           <label class="text-gray-200" for="email">Correo electrónico</label>
-          <input class="text-gray-600" type="email" name="email" id="email" />
+          <input class="text-gray-600" type="email" name="email" id="email" autocomplete="email" required />
         </div>
         <div class="form-group relative">
           <label class="text-gray-200" for="password">Contraseña</label>
-          <input class="text-gray-600" type="password" name="password" id="password" />
+          <input class="text-gray-600" type="password" name="password" id="password" autocomplete="current-password" required/>
           <!-- Ícono para mostrar/ocultar la contraseña -->
           <span id="toggle-password" class="absolute right-3 top-10 cursor-pointer text-gray-600">
             <i class="fas fa-eye"></i>
@@ -42,10 +42,12 @@ if (accessToken && refreshToken) {
       <p class="-mt-2.5 text-xs text-center dark:text-zinc-400 text-zinc-500">
         <span class="bg-zinc-800 px-3">Or with</span>
       </p>
+
       <form
         action="/api/auth/signin"
         method="post"
         class="w-full max-w-md mt-6 flex flex-col gap-2"
+        id="provider"
       >
         <button
           value="github"

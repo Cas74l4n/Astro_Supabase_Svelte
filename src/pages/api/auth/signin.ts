@@ -62,5 +62,5 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   });
 
   // Redirige al usuario a la página de corrección
-  return redirect("/signin");
+  return redirect("/corrector");
 };
